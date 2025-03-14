@@ -1,7 +1,8 @@
 # Roll Call
-- A DND Initative Tracker
+- Simple DND Initative Tracker
+- Backend
 - WIP
-
+s
 # Setup:
 
 # Notes:
