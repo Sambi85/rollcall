@@ -1,7 +1,6 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# README 
+- Currently WIP
+- Rollcall is an initative tracker for TTRPGs. This helpful tool helps a game master keep track of initative rounds, initaive orders, K.O.s and coditions. 
 
 Things you may want to cover:
 
