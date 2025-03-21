@@ -1,7 +1,11 @@
 class Creature < ApplicationRecord
   belongs_to :tracker, optional: true
 
-  enum role: { player: 'player', npc: 'npc', monster: 'monster' }
+  after_initialize :set_defaults
+
+  def set_defaults
+    self.dead = false if self.dead.nil?
+  end
 
   def kill
     update(dead: true)
