@@ -10,5 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_21_032758) do
+  create_table "creatures", force: :cascade do |t|
+    t.string "name"
+    t.string "role"
+    t.integer "initiative"
+    t.boolean "dead"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trackers", force: :cascade do |t|
+    t.integer "round"
+    t.text "turn_order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 end
