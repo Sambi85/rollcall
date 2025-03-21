@@ -1,13 +1,13 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  role: MyString
-  initiative: 1
+frodo:
+  name: "Frodo"
+  role: "player"
+  initiative: 12
   dead: false
+  tracker: one  # 👈 Ensure this is valid!
 
-two:
-  name: MyString
-  role: MyString
-  initiative: 1
+goblin:
+  name: "Goblin"
+  role: "monster"
+  initiative: 8
   dead: false
+  tracker: one
