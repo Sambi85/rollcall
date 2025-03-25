@@ -1,0 +1,13 @@
+frodo:
+  name: "Frodo"
+  role: "player"
+  initiative: 12
+  dead: false
+  tracker: one  # 👈 Ensure this is valid!
+
+goblin:
+  name: "Goblin"
+  role: "monster"
+  initiative: 8
+  dead: false
+  tracker: one

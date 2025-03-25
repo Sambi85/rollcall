@@ -10,5 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 0) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_21_051704) do
+  create_table "creatures", force: :cascade do |t|
+    t.string "name"
+    t.string "role"
+    t.integer "initiative"
+    t.boolean "dead"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "tracker_id", null: false
+    t.index ["tracker_id"], name: "index_creatures_on_tracker_id"
+  end
+
+  create_table "trackers", force: :cascade do |t|
+    t.integer "round"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "turn_order", default: "--- []"
+  end
+
+  add_foreign_key "creatures", "trackers"
 end
