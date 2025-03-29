@@ -18,4 +18,10 @@ class Tracker < ApplicationRecord
     turn_order.rotate!
     save!
   end
+
+  def next_round
+    self.mark_active_turn
+    self.round += 1
+    save!
+  end
 end

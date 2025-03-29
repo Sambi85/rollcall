@@ -27,6 +27,20 @@
   - initative roll
   - dead attr + methods to kill creature
 
+**Manual Testing with CURL commands**
+Trackers Controller
+GET curl -X GET http://localhost:3000/trackers/:id/get_initiative_order
+GET curl -X GET http://localhost:3000/trackers/:id/get_dead_combatants
+POST curl -X POST http://localhost:3000/trackers/:id/next_round
+
+Creatures Controller
+POST curl -X POST http://localhost:3000/trackers/:id/creatures \
+  -H "Content-Type: application/json" \
+  -d '{"creature": {"name": "Goblin", "role": "Enemy", "initiative_roll": 10, "hp": 25}}'
+
+!!! NEED mark_dead
+!!! NEED restore_combatant
+
 **Todo**
   - Status, Concentration and Conditions (CRUD)
   - HP tracking (CRU)
