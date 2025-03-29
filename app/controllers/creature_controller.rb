@@ -33,4 +33,3 @@ class CreatureController < ApplicationController
     params.require(:creature).permit(:name, :role, :initiative_roll, :hp)
   end
 end
-
