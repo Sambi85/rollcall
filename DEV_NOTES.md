@@ -4,12 +4,12 @@
   - Tracks Initative order
   - Whose turn it is
   - What round we are on
-  - K.O.'d combatants
+  - toggle K.O.'d combatants
 
 **Features**
   - Add enemies or players to initative
   - Marks enemies or players as dead
-  - Restores enemies or players to initative order (keep the same order)
+  - Marks enemies or players as alive and adds back to initative order (keeps same order by default)
 
 **Data Models**
   1. Tracker
@@ -29,22 +29,25 @@
 
 **Manual Testing with CURL commands**
 Trackers Controller
+```bash
 GET curl -X GET http://localhost:3000/trackers/:id/get_initiative_order
 GET curl -X GET http://localhost:3000/trackers/:id/get_dead_combatants
 POST curl -X POST http://localhost:3000/trackers/:id/next_round
-
+```
 Creatures Controller
+```bash
 POST curl -X POST http://localhost:3000/trackers/:id/creatures \
   -H "Content-Type: application/json" \
   -d '{"creature": {"name": "Goblin", "role": "Enemy", "initiative_roll": 10, "hp": 25}}'
 
-!!! NEED mark_dead
-!!! NEED restore_combatant
+curl -X PUT http://localhost:3000/trackers/1/creatures/5/mark_dead
+curl -X PUT "http://localhost:3000/trackers/1/creatures/5/mark_alive"
+```
 
 **Todo**
   - Status, Concentration and Conditions (CRUD)
   - HP tracking (CRU)
-  - Die of Doom tracker
+  - Die of Doom tracker (Special Event)
   - Make MVC backend w/ API
   - Make CSV Import for easy combat setup
   - Make CSV Log Export for useful post combat data

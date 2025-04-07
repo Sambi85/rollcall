@@ -1,23 +1,28 @@
 class CreaturesController < ApplicationController
   before_action :set_tracker
-  before_action :set_creature, only: [:mark_dead, :restore_combatant]
+  before_action :set_creature, only: [:mark_dead, :mark_alive]
 
-  #POST curl -X POST http://localhost:3000/trackers/:id/creatures
+  #POST /trackers/:id/creatures
   def add_combatant
     creature = Creature.create(creature_params)
     @tracker.add_combatant(creature)
     render json: { message: "#{creature.name} added to initiative order!" }, status: :created
   end
 
-  #PUT
+  #PUT /trackers/:id/creatures/:id/mark_dead
   def mark_dead
-    @tracker.mark_dead(@creature)
+    if @creature.nil?
+      render json: { error: "Creature not found, cannot mark dead" }, status: :not_found
+      return
+    end
+
+    @creature.mark_dead
     render json: { message: "#{@creature.name} marked as dead" }, status: :ok
   end
 
   #PUT
-  def restore_combatant
-    @tracker.restore_combatant(@creature)
+  def mark_alive
+    @creature.mark_alive
     render json: { message: "#{@creature.name} restored to initiative order" }, status: :ok
   end
 
@@ -28,7 +33,7 @@ class CreaturesController < ApplicationController
   end
 
   def set_creature
-    @creature = Creature.find(params[:id])
+    @creature = Creature.find(params[:creature_id])
   end
 
   def creature_params

@@ -5,11 +5,9 @@ Rails.application.routes.draw do
       get 'get_initiative_order'
       get 'get_dead_combatants'
     end
-    resources :creatures, only: [:create, :show] do
-      member do
-        post 'mark_dead'
-        post 'restore_combatant'
-      end
+    resources :creatures, only: [:create, :show, :update] do
+      put 'mark_dead'
+      put 'mark_alive'
     end
   end
 

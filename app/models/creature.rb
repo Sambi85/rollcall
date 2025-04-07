@@ -9,7 +9,11 @@ class Creature < ApplicationRecord
     self.dead = false if self.dead.nil?
   end
 
-  def kill
-    update(dead: true)
+  def mark_dead
+    update!(dead: true)
+  end
+
+  def mark_alive
+    update!(dead: false)
   end
 end
