@@ -11,8 +11,8 @@ class CreatureControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get restore_combatant" do
-    get creature_restore_combatant_url
+  test "should get mark_alive" do
+    get creature_mark_alive_url
     assert_response :success
   end
 end
