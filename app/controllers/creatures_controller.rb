@@ -1,20 +1,20 @@
 class CreaturesController < ApplicationController
   before_action :set_tracker
-  before_action :set_creature, only: [:mark_dead, :mark_alive]
+  before_action :set_creature, only: [ :mark_dead, :mark_alive ]
 
-  #POST /trackers/:tracker_id/creatures
+  # POST /trackers/:tracker_id/creatures
   def create
     creature = Creature.create!(
-      name: creature_params['name'],
-      role: creature_params['role'],
-      initiative: creature_params['initiative'],
+      name: creature_params["name"],
+      role: creature_params["role"],
+      initiative: creature_params["initiative"],
       tracker_id: @tracker.id
     )
     @tracker.add_combatant(creature)
     render json: { message: "#{creature.name} added to initiative order!" }, status: :created
   end
 
-  #PUT /trackers/:tracker_id/creatures/:creature_id/mark_dead
+  # PUT /trackers/:tracker_id/creatures/:creature_id/mark_dead
   def mark_dead
     if @creature.nil?
       render json: { error: "Creature not found, cannot mark dead" }, status: :not_found
@@ -25,7 +25,7 @@ class CreaturesController < ApplicationController
     render json: { message: "#{@creature.name} marked as dead" }, status: :ok
   end
 
-  #PUT /trackers/:tracker_id/creatures/:creature_id/mark_alive
+  # PUT /trackers/:tracker_id/creatures/:creature_id/mark_alive
   def mark_alive
     @creature.mark_alive
     render json: { message: "#{@creature.name} restored to initiative order" }, status: :ok
