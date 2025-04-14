@@ -1,7 +1,7 @@
 class TrackersController < ApplicationController
   before_action :set_tracker, only: [:next_round, :get_initiative_order, :get_dead_combatants]
 
-  #POST trackers/:id/next_round
+  #PUT trackers/:id/next_round
   def next_round
     @tracker.next_round
     render json: { round: @tracker.round }, status: :ok

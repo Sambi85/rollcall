@@ -30,18 +30,18 @@
 **Manual Testing with CURL commands**
 Trackers Controller
 ```bash
-GET curl -X GET http://localhost:3000/trackers/:id/get_initiative_order
-GET curl -X GET http://localhost:3000/trackers/:id/get_dead_combatants
-POST curl -X POST http://localhost:3000/trackers/:id/next_round
+curl -X GET http://localhost:3000/trackers/:id/get_initiative_order
+curl -X GET http://localhost:3000/trackers/:id/get_dead_combatants
+curl -X PUT http://localhost:3000/trackers/:id/next_round
 ```
 Creatures Controller
 ```bash
-POST curl -X POST http://localhost:3000/trackers/:id/creatures \
+curl -X POST http://localhost:3000/trackers/:id/creatures \
   -H "Content-Type: application/json" \
-  -d '{"creature": {"name": "Goblin", "role": "Enemy", "initiative_roll": 10, "hp": 25}}'
+  -d '{"creature": {"name": "Goblin", "role": "Enemy", "initiative": 10, "tracker_id": 1 }}'
 
-curl -X PUT http://localhost:3000/trackers/1/creatures/5/mark_dead
-curl -X PUT "http://localhost:3000/trackers/1/creatures/5/mark_alive"
+curl -X PUT http://localhost:3000/trackers/:id/creatures/:creature_id/mark_dead
+curl -X PUT "http://localhost:3000/trackers/:id/creatures/:creature_id/mark_alive"
 ```
 
 **Todo**

@@ -17,7 +17,7 @@ class CreatureTest < ActiveSupport::TestCase
   end
 
   test "kill method should mark creature as dead" do
-    @creature.kill
+    @creature.mark_dead
     assert @creature.dead
   end
 end
