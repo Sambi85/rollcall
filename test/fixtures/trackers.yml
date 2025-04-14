@@ -1,2 +1,6 @@
 one:
   round: 1
+  turn_order: [1, 2, 3]
+two:
+  round: 1
+  turn_order: []

@@ -9,13 +9,27 @@ class Tracker < ApplicationRecord
     self.turn_order ||= []
   end
 
+  def add_combatant(creature)
+    self.turn_order << creature.id
+    self.sort_turn_order
+    save!
+  end
+
   def sort_turn_order
-    self.turn_order.sort_by! { |creature_id| Creature.find(creature_id).initiative }.reverse!
+    self.turn_order.sort_by! { |creature_id|
+                                Creature.find(creature_id).initiative
+                              }.reverse!
     save!
   end
 
   def mark_active_turn
     turn_order.rotate!
+    save!
+  end
+
+  def next_round
+    self.mark_active_turn
+    self.round += 1
     save!
   end
 end
