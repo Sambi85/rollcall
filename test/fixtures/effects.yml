@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
+  name: Poison
+  description: Disadvantage on attack rolls and saving throws 
   duration: 1
   status_type: MyString
-  creature: one
+  creature: debuff
 
 two:
-  name: MyString
-  description: MyText
-  duration: 1
+  name: Paralyzed
+  description: Can't movement, actions or bonus actions
+  duration: 4
   status_type: MyString
-  creature: two
+  creature: debuff
