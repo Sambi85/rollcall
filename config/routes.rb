@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post "creatures"
       put "mark_dead"
       put "mark_alive"
+      resources :effects, only: [ :index, :create, :update, :destroy ]
     end
   end
 

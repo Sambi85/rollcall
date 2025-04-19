@@ -16,6 +16,16 @@ class EffectsController < ApplicationController
     end
   end
 
+  def update
+    @effect = @creature.effects.find(params[:id])
+  
+    if @effect.update(effect_params)
+      redirect_to creature_path(@creature), notice: "Effect updated!"
+    else
+      render :edit
+    end
+  end  
+
   def destroy
     @effect.destroy
     redirect_to creature_path(@creature), notice: 'Effect removed.'
