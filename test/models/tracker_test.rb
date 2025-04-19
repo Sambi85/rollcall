@@ -50,7 +50,7 @@ class TrackerTest < ActiveSupport::TestCase
     @tracker.add_combatant(new_creature)
 
     assert_includes @tracker.turn_order, new_creature.id
-    assert_equal [new_creature.id], @tracker.turn_order
+    assert_equal [ new_creature.id ], @tracker.turn_order
   end
 
   test "should rotate turn order and increment round" do
