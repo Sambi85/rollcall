@@ -16,8 +16,14 @@ class CreatureTest < ActiveSupport::TestCase
     assert_includes creature.errors[:name], "can't be blank"
   end
 
-  test "kill method should mark creature as dead" do
+  test "mark_dead method should mark creature as dead" do
     @creature.mark_dead
     assert @creature.dead
+  end
+
+  test "mark_alive method should mark creature as alive" do
+    @creature.mark_dead
+    @creature.mark_alive
+    assert_not @creature.dead
   end
 end
