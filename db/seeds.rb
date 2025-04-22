@@ -1,11 +1,34 @@
 # Clear existing data
 Tracker.destroy_all
 Creature.destroy_all
+Effect.destroy_all
 
-# Create a Tracker
+# Create Tracker (Global)
 tracker = Tracker.create!(round: 1, turn_order: [])
 
-# Create Creatures
+# Create Effect (Global)
+effect1 = Effect.create!(
+  name: "Chill Wind",
+  description: "A cold gust that slows enemies.",
+  duration: 3,
+  status_type: "debuff"
+)
+
+effect2 = Effect.create!(
+  name: "Hero's Blessing",
+  description: "Increases strength and morale.",
+  duration: 5,
+  status_type: "buff"
+)
+
+effect3 = Effect.create!(
+  name: "Lingering Poison",
+  description: "Deals damage over time.",
+  duration: 4,
+  status_type: "debuff"
+)
+
+# Create Creatures (Global)
 creatures = [
   { name: "Aragorn", role: "player", initiative: rand(1..20), dead: false },
   { name: "Gandalf", role: "player", initiative: rand(1..20), dead: false },
@@ -24,4 +47,4 @@ end
 tracker.sort_turn_order
 tracker.save!
 
-puts "Seeded #{Creature.count} creatures and 1 tracker!"
+puts "Seeded creature(s): #{Creature.count}, tracker(s): #{Tracker.count}, effect(s): #{Effect.count}!"
