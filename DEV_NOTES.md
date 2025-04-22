@@ -52,8 +52,14 @@ curl -X POST http://localhost:3000/trackers/:id/creatures \
 curl -X PUT http://localhost:3000/trackers/:id/creatures/:creature_id/mark_dead
 curl -X PUT "http://localhost:3000/trackers/:id/creatures/:creature_id/mark_alive"
 ```
-Effects Controller - WIP
+Effects Controller
 ```bash
+curl http://localhost:3000/effects
+
+curl http://localhost:3000/effects/:effect_id
+
+curl -X DELETE http://localhost:3000/effects/:effect_id
+
 curl -X POST http://localhost:3000/effects \
   -H "Content-Type: application/json" \
   -d '{
