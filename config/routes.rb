@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :effects, only: [ :index, :show, :create, :update, :destroy ]
+
   resources :trackers, only: [ :create, :show, :update ] do
     member do
       put "next_round"
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
       post "creatures"
       put "mark_dead"
       put "mark_alive"
-      resources :effects, only: [ :index, :create, :update, :destroy ]
+      resources :effects, controller: "creature_effects"
     end
   end
 

@@ -5,7 +5,7 @@ class CreateEffects < ActiveRecord::Migration[8.0]
       t.text :description
       t.integer :duration
       t.string :status_type
-      t.references :creature, null: false, foreign_key: true
+      t.references :creature, null: true, foreign_key: true
 
       t.timestamps
     end

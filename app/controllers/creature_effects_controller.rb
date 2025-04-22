@@ -1,22 +1,18 @@
-class EffectsController < ApplicationController
-  before_action :set_effect, only: [ :show, :update, :destroy ]
+class CreatureEffectsController < ApplicationController
+  before_action :set_creature
+  before_action :set_effect, only: [:update, :destroy]
 
   def index
-    @effects = Effect.where(creature_id: nil)
-    render json: @effects
-  end
-
-  def show
-    render json: @effect
+    render json: @creature.effects
   end
 
   def create
-    @effect = Effect.new(effect_params)
-ß
+    @effect = @creature.effects.build(effect_params)
+
     if @effect.save
       render json: @effect, status: :created
     else
-      render json: { errors: @effect.errors.full_messages }, status: :unprocessable_entity
+      render json: @effect.errors, status: :unprocessable_entity
     end
   end
 
@@ -35,8 +31,12 @@ class EffectsController < ApplicationController
 
   private
 
+  def set_creature
+    @creature = Creature.find(params[:creature_id])
+  end
+
   def set_effect
-    @effect = Effect.find(params[:id])
+    @effect = @creature.effects.find(params[:id])
   end
 
   def effect_params

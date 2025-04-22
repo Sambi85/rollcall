@@ -54,6 +54,41 @@ curl -X PUT "http://localhost:3000/trackers/:id/creatures/:creature_id/mark_aliv
 ```
 Effects Controller - WIP
 ```bash
+curl -X POST http://localhost:3000/effects \
+  -H "Content-Type: application/json" \
+  -d '{
+    "effect": {
+      "name": "Invisible",
+      "duration":0,
+      "description": "Cannot be seen.",
+      "status_type": "buff"
+    }
+  }'
+
+  curl -X POST http://localhost:3000/trackers/:id/creatures/:creature_id/effects \
+  -H "Content-Type: application/json" \
+  -d '{
+    "effect": {
+      "name": "Frightened",
+      "description": "Disadvantage on attacks",
+      "duration": 3,
+      "status_type": "debuff"
+    }
+  }'
+
+  curl -X PATCH http://localhost:3000/effects/:effect_id \
+  -H "Content-Type: application/json" \
+  -d '{
+    "effect": {
+      "creature_id": 5
+    }
+  }'
+
+```
+
+Creature Effects Controller - WIP
+```bash
+
 ```
 
 **Todo**

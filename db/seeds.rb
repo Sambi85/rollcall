@@ -1,6 +1,7 @@
 # Clear existing data
 Tracker.destroy_all
 Creature.destroy_all
+Effect.destroy_all
 
 # Create a Tracker
 tracker = Tracker.create!(round: 1, turn_order: [])
@@ -24,4 +25,5 @@ end
 tracker.sort_turn_order
 tracker.save!
 
-puts "Seeded #{Creature.count} creatures and 1 tracker!"
+puts "Seeded creature(s): #{Creature.count} trackers(s): #{Tracker.count} and effect(s): #{Effect.count}"
+
