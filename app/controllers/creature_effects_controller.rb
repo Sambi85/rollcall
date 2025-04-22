@@ -1,6 +1,6 @@
 class CreatureEffectsController < ApplicationController
   before_action :set_creature
-  before_action :set_effect, only: [:update, :destroy]
+  before_action :set_effect, only: [ :update, :destroy ]
 
   def index
     render json: @creature.effects

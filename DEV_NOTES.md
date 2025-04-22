@@ -92,14 +92,39 @@ curl -X POST http://localhost:3000/effects \
 
 ```
 
-Creature Effects Controller - WIP
+Creature Effects Controller - used to manage effects during combat
 ```bash
+curl http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/effects
+
+curl -X DELETE http://localhost:3000/trackers/1/creatures/5/effects/12
+
+curl -X POST http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/effects \
+  -H "Content-Type: application/json" \
+  -d '{
+    "effect": {
+      "name": "Blinded",
+      "description": "Cannot see, auto-fail vision-based checks",
+      "duration": 2,
+      "status_type": "debuff"
+    }
+  }'
+
+curl -X PATCH http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/effects/:effect_id \
+  -H "Content-Type: application/json" \
+  -d '{
+    "effect": {
+      "duration": 1
+    }
+  }'
+
 
 ```
 
 **Todo**
-  - HP tracking (CRU) 
+  - HP tracking (CRU)
   - Die of Doom tracker (Special Event)
+  - Special Abilities worth tracking (Multi attack, 15ft. reach, etc.)
+  - Add Enemies on the fly 
   - External Facing API
   - Make CSV Import for easy combat setup
   - Make CSV Log Export for useful post combat data

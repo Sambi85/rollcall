@@ -11,3 +11,17 @@ goblin:
   initiative: 8
   dead: false
   tracker: one
+
+skeleton:
+  name: "Skeleton"
+  role: "monster"
+  initiative: 10,
+  dead: false,
+  tracker: two
+
+zombie:
+  name: "Zombie"
+  role: "monster"
+  initiative: 8
+  dead: false
+  tracker: one

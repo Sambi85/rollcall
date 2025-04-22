@@ -12,7 +12,7 @@ class EffectsController < ApplicationController
 
   def create
     @effect = Effect.new(effect_params)
-ß
+
     if @effect.save
       render json: @effect, status: :created
     else
