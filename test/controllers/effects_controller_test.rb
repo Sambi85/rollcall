@@ -48,13 +48,12 @@ class EffectsControllerTest < ActionDispatch::IntegrationTest
         }
       }, as: :json
     end
-  
+
     assert_response :unprocessable_entity
     body = JSON.parse(response.body)
     assert_includes body["errors"], "Name can't be blank"
     assert_includes body["errors"], "Status type is not included in the list"
   end
-  
 
   test "should update effect" do
     patch effect_url(@effect), params: {
