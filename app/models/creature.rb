@@ -21,17 +21,17 @@ class Creature < ApplicationRecord
     update!(dead: false)
   end
 
-  def down(amount = 1)
+  def down(damage_amount = 1)
     if temp_hp > 0
-      if amount <= temp_hp
-        self.temp_hp -= amount
+      if damage_amount <= temp_hp
+        self.temp_hp -= damage_amount
       else
-        remaining = amount - temp_hp
+        remaining = damage_amount - temp_hp
         self.temp_hp = 0
         self.current_hp -= remaining
       end
     else
-      self.current_hp -= amount
+      self.current_hp -= damage_amount
     end
 
     self.current_hp = 0 if current_hp < 0
@@ -39,10 +39,10 @@ class Creature < ApplicationRecord
     save
   end
 
-  def up(amount = 1)
+  def up(heal_amount = 1)
     return if dead
 
-    self.current_hp += amount
+    self.current_hp += heal_amount
     self.current_hp = max_hp if current_hp > max_hp
     save
   end

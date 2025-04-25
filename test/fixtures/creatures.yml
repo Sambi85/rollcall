@@ -18,6 +18,26 @@ goblin:
   temp_hp: 0
   tracker: one
 
+damaged_imp:
+  name: "Lesser Imp"
+  role: "monster"
+  initiative: 8
+  dead: false
+  current_hp: 1
+  max_hp: 20
+  temp_hp: 0
+  tracker: one
+
+buffed_devil:
+  name: "Greater Imp"
+  role: "monster"
+  initiative: 8
+  dead: false
+  current_hp: 1
+  max_hp: 10
+  temp_hp: 5
+  tracker: one
+
 skeleton:
   name: "Skeleton"
   role: "monster"
