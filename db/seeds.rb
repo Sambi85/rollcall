@@ -30,11 +30,11 @@ effect3 = Effect.create!(
 
 # Create Creatures (Global)
 creatures = [
-  { name: "Aragorn", role: "player", initiative: rand(1..20), dead: false },
-  { name: "Gandalf", role: "player", initiative: rand(1..20), dead: false },
-  { name: "Goblin", role: "monster", initiative: rand(1..20), dead: false },
-  { name: "The Pale Orc", role: "monster", initiative: rand(1..20), dead: false },
-  { name: "Villager of Bywater", role: "npc", initiative: rand(1..20), dead: false }
+  { name: "Aragorn", role: "player", initiative: rand(1..20), dead: false, current_hp: 15 , max_hp: 15 , temp_hp: 0 },
+  { name: "Gandalf", role: "player", initiative: rand(1..20), dead: false, current_hp: 12 , max_hp: 12 , temp_hp: 0 },
+  { name: "Goblin", role: "monster", initiative: rand(1..20), dead: false, current_hp: 8 , max_hp: 8 , temp_hp: 0 },
+  { name: "The Pale Orc", role: "monster", initiative: rand(1..20), dead: false, current_hp: 25 , max_hp: 25 , temp_hp: 0 },
+  { name: "Villager of Bywater", role: "npc", initiative: rand(1..20), dead: false, current_hp: 35 , max_hp: 35 , temp_hp: 0 }
 ]
 
 # Save creatures and add their IDs to the tracker's turn order
