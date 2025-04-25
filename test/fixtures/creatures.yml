@@ -3,6 +3,9 @@ frodo:
   role: "player"
   initiative: 12
   dead: false
+  current_hp: 3
+  max_hp: 10
+  temp_hp: 4
   tracker: one  # 👈 Ensure this is valid!
 
 goblin:
@@ -10,12 +13,18 @@ goblin:
   role: "monster"
   initiative: 8
   dead: false
+  current_hp: 10
+  max_hp: 10
+  temp_hp: 0
   tracker: one
 
 skeleton:
   name: "Skeleton"
   role: "monster"
-  initiative: 10,
+  initiative: 10
+  current_hp: 8
+  max_hp: 8
+  temp_hp: 0
   dead: false,
   tracker: two
 
@@ -23,5 +32,8 @@ zombie:
   name: "Zombie"
   role: "monster"
   initiative: 8
+  current_hp: 5
+  max_hp: 5
+  temp_hp: 0
   dead: false
   tracker: one

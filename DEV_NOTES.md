@@ -32,6 +32,7 @@
   - role => player, NPC, or monster
   - initative roll
   - dead attr + methods to kill creature
+  - track hit points
 
 **More on Effect Class**
   - WIP
@@ -121,10 +122,9 @@ curl -X PATCH http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/
 ```
 
 **Todo**
-  - HP tracking (CRU)
   - Die of Doom tracker (Special Event)
   - Special Abilities worth tracking (Multi attack, 15ft. reach, etc.)
-  - Add Enemies on the fly 
+  - Add Enemies on the fly (new controller, tests, fixtures)
   - External Facing API
   - Make CSV Import for easy combat setup
   - Make CSV Log Export for useful post combat data
