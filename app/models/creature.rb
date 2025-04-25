@@ -11,6 +11,8 @@ class Creature < ApplicationRecord
     self.current_hp ||= 0
     self.max_hp ||= 0
     self.temp_hp ||= 0
+    self.death_saves_successes ||= 0
+    self.death_saves_failures ||= 0
   end
 
   def mark_dead
