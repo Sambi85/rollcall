@@ -53,4 +53,18 @@ class Creature < ApplicationRecord
     mark_alive
     save
   end
+
+  def reset_death_saves
+    update!(death_saves_successes: 0, death_saves_failures: 0)
+  end
+
+  def add_death_save(success:)
+    if success
+      increment!(:death_saves_successes)
+      mark_alive if death_saves_successes >= 3
+    else
+      increment!(:death_saves_failures)
+      mark_dead if death_saves_failures >= 3
+    end
+  end
 end

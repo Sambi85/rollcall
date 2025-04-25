@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_25_005831) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_25_214956) do
   create_table "creatures", force: :cascade do |t|
     t.string "name"
     t.string "role"
@@ -22,6 +22,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_25_005831) do
     t.integer "current_hp", default: 0, null: false
     t.integer "max_hp", default: 0, null: false
     t.integer "temp_hp", default: 0, null: false
+    t.integer "death_saves_successes", default: 0, null: false
+    t.integer "death_saves_failures", default: 0, null: false
     t.index ["tracker_id"], name: "index_creatures_on_tracker_id"
   end
 
