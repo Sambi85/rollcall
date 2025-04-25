@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_22_011256) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_25_005831) do
   create_table "creatures", force: :cascade do |t|
     t.string "name"
     t.string "role"
@@ -19,6 +19,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_011256) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "tracker_id", null: false
+    t.integer "current_hp", default: 0, null: false
+    t.integer "max_hp", default: 0, null: false
+    t.integer "temp_hp", default: 0, null: false
     t.index ["tracker_id"], name: "index_creatures_on_tracker_id"
   end
 

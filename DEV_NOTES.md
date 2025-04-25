@@ -32,6 +32,7 @@
   - role => player, NPC, or monster
   - initative roll
   - dead attr + methods to kill creature
+  - track hit points
 
 **More on Effect Class**
   - WIP
@@ -51,6 +52,14 @@ curl -X POST http://localhost:3000/trackers/:id/creatures \
 
 curl -X PUT http://localhost:3000/trackers/:id/creatures/:creature_id/mark_dead
 curl -X PUT "http://localhost:3000/trackers/:id/creatures/:creature_id/mark_alive"
+
+curl -X PUT "http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/receive_damage" \
+     -H "Content-Type: application/json" \
+     -d '{"amount": 5}'
+
+curl -X PUT "http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/heal" \
+     -H "Content-Type: application/json" \
+     -d '{"amount": 3}'
 ```
 Effects Controller
 ```bash
@@ -89,7 +98,6 @@ curl -X POST http://localhost:3000/effects \
       "creature_id": 5
     }
   }'
-
 ```
 
 Creature Effects Controller - used to manage effects during combat
@@ -116,15 +124,13 @@ curl -X PATCH http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/
       "duration": 1
     }
   }'
-
-
 ```
 
 **Todo**
-  - HP tracking (CRU)
+  - Death Saves Counter (optional???)
   - Die of Doom tracker (Special Event)
   - Special Abilities worth tracking (Multi attack, 15ft. reach, etc.)
-  - Add Enemies on the fly 
+  - Add Enemies on the fly (new controller, tests, fixtures)
   - External Facing API
   - Make CSV Import for easy combat setup
   - Make CSV Log Export for useful post combat data

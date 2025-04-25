@@ -1,6 +1,6 @@
 class CreaturesController < ApplicationController
   before_action :set_tracker
-  before_action :set_creature, only: [ :mark_dead, :mark_alive ]
+  before_action :set_creature, only: [ :mark_dead, :mark_alive, :receive_damage, :heal ]
 
   # POST /trackers/:tracker_id/creatures
   def create
@@ -29,6 +29,29 @@ class CreaturesController < ApplicationController
   def mark_alive
     @creature.mark_alive
     render json: { message: "#{@creature.name} restored to initiative order" }, status: :ok
+  end
+
+  # PUT /trackers/:tracker_id/creatures/:creature_id/receive_damage
+  def receive_damage
+    damage_amount = params[:amount].to_i
+    if damage_amount <= 0
+      render json: { error: "Damage must be greater than 0" }, status: :bad_request
+      return
+    end
+    @creature.down(damage_amount)
+    render json: { message: "#{@creature.name} took #{damage_amount} damage" }, status: :ok
+  end
+
+  # PUT /trackers/:tracker_id/creatures/:creature_id/heal
+  def heal
+    heal_amount = params[:amount].to_i
+    if heal_amount <= 0
+      render json: { error: "Healing amount must be greater than 0" }, status: :bad_request
+      return
+    end
+
+    @creature.up(heal_amount)
+    render json: { message: "#{@creature.name} healed for #{heal_amount} HP" }, status: :ok
   end
 
   private

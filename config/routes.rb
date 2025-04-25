@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       post "creatures"
       put "mark_dead"
       put "mark_alive"
+      put "receive_damage"
+      put "heal"
       resources :effects, controller: "creature_effects"
     end
   end
