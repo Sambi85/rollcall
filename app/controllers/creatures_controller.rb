@@ -1,6 +1,6 @@
 class CreaturesController < ApplicationController
   before_action :set_tracker
-  before_action :set_creature, only: [ :mark_dead, :mark_alive, :receive_damage, :heal ]
+  before_action :set_creature, only: [ :mark_dead, :mark_alive, :receive_damage, :heal, :reset_death_saves, :add_death_save ]
 
   # POST /trackers/:tracker_id/creatures
   def create
@@ -52,6 +52,31 @@ class CreaturesController < ApplicationController
 
     @creature.up(heal_amount)
     render json: { message: "#{@creature.name} healed for #{heal_amount} HP" }, status: :ok
+  end
+
+  # PUT /trackers/:tracker_id/creatures/:creature_id/reset_death_saves
+  def reset_death_saves
+    @creature.reset_death_saves
+    render json: {
+      message: "Death saves have been reset.",
+      creature: @creature
+    }, status: :ok
+  end
+
+  # PUT trackers/:tracker_id/creatures/:creature_id/add_death_save
+  def add_death_save
+    if params[:success].nil?
+      render json: { error: "Missing parameter: success" }, status: :unprocessable_entity
+      return
+    end
+
+    success = ActiveModel::Type::Boolean.new.cast(params[:success])
+    @creature.add_death_save(success: success)
+
+    render json: {
+      message: "Death save recorded.",
+      creature: @creature
+    }, status: :ok
   end
 
   private

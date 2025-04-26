@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       put "mark_alive"
       put "receive_damage"
       put "heal"
+      put "reset_death_saves"
+      put "add_death_save"
       resources :effects, controller: "creature_effects"
     end
   end

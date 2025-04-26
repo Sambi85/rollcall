@@ -57,3 +57,27 @@ zombie:
   temp_hp: 0
   dead: false
   tracker: one
+
+fallen_paladin:
+  name: "Fallen Paladin"
+  role: "NPC"
+  initiative: 8
+  current_hp: 0
+  max_hp: 5
+  temp_hp: 0
+  dead: true
+  death_saves_successes: 2
+  death_saves_failures: 2
+  tracker: one
+  
+dying_rouge:
+  name: "Dying Rouge"
+  role: "NPC"
+  initiative: 8
+  current_hp: 0
+  max_hp: 5
+  temp_hp: 0
+  dead: true
+  death_saves_successes: 0
+  death_saves_failures: 2
+  tracker: one

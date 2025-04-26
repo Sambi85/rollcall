@@ -22,20 +22,29 @@
   3. Effect
 
 **More on Tracker Class**
-  - Keeps track of round => use a counter
-  - order of Initative => use an Array
-  - Sort turn order by initative roll
+  - tracks of round (counter)
+  - tracks whose turn it is (first element in array)
+  - tracks initative order (array)
+  - Sorts initiative order by initative roll
+  - adds combantants to intitative order
   - Marks active turn in initative order
 
 **More on Creature Class**
   - tracks name
-  - role => player, NPC, or monster
+  - role (player, NPC, or monster)
   - initative roll
   - dead attr + methods to kill creature
-  - track hit points
+  - tracks hit points, temp hit points and max hp
+  - tracks death save successes and failures
+  - resets death saves 
+  - tracks tracker it belongs to
 
 **More on Effect Class**
-  - WIP
+  - tracks name of effect
+  - tracks type (buff, debuff, neutral)
+  - tracks duration
+  - has a description
+  - tracks creature it belongs to
 
 **Manual Testing with CURL commands**
 Trackers Controller
@@ -60,6 +69,12 @@ curl -X PUT "http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/r
 curl -X PUT "http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/heal" \
      -H "Content-Type: application/json" \
      -d '{"amount": 3}'
+
+curl -X PUT http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/reset_death_saves
+
+curl -X PUT http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/add_death_save \
+  -d "success=<SET AS TRUE OR FALSE!!!>"
+
 ```
 Effects Controller
 ```bash
