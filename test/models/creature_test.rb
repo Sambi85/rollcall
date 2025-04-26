@@ -87,34 +87,34 @@ class CreatureTest < ActiveSupport::TestCase
     @dying_rouge.update!(death_saves_successes: 2, death_saves_failures: 0, dead: true)  
     @dying_rouge.add_death_save(success: true)
     @dying_rouge.reload
-  
+
     assert_equal 3, @dying_rouge.death_saves_successes
     assert_equal false, @dying_rouge.dead
   end
-  
+
   test "#add_death_save increments failures and sets dead to true at 3" do
     @dying_rouge.update!(death_saves_successes: 0, death_saves_failures: 2, dead: false) 
     @dying_rouge.add_death_save(success: false)
     @dying_rouge.reload
-  
+
     assert_equal 3, @dying_rouge.death_saves_failures
     assert_equal true, @dying_rouge.dead
   end
-  
+
   test "#add_death_save increments successes without changing dead under 3" do
     @dying_rouge.update!(death_saves_successes: 1, death_saves_failures: 0, dead: true)
     @dying_rouge.add_death_save(success: true)
     @dying_rouge.reload
-  
+
     assert_equal 2, @dying_rouge.death_saves_successes
     assert_equal true, @dying_rouge.dead
   end
-  
+
   test "#add_death_save increments failures without changing dead under 3" do
     @dying_rouge.update!(death_saves_successes: 0, death_saves_failures: 1, dead: false)
     @dying_rouge.add_death_save(success: false)
     @dying_rouge.reload
-  
+
     assert_equal 2, @dying_rouge.death_saves_failures
     assert_equal false, @dying_rouge.dead
   end

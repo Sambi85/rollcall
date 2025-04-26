@@ -35,7 +35,8 @@
   - initative roll
   - dead attr + methods to kill creature
   - tracks hit points, temp hit points and max hp
-  - tracks death save successes and failures 
+  - tracks death save successes and failures
+  - resets death saves 
   - tracks tracker it belongs to
 
 **More on Effect Class**
@@ -68,6 +69,12 @@ curl -X PUT "http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/r
 curl -X PUT "http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/heal" \
      -H "Content-Type: application/json" \
      -d '{"amount": 3}'
+
+curl -X PUT http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/reset_death_saves
+
+curl -X PUT http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/add_death_save \
+  -d "success=<SET AS TRUE OR FALSE!!!>"
+
 ```
 Effects Controller
 ```bash
