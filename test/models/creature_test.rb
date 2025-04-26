@@ -84,7 +84,7 @@ class CreatureTest < ActiveSupport::TestCase
   end
 
   test "#add_death_save increments successes and sets dead to false at 3" do
-    @dying_rouge.update!(death_saves_successes: 2, death_saves_failures: 0, dead: true)  
+    @dying_rouge.update!(death_saves_successes: 2, death_saves_failures: 0, dead: true)
     @dying_rouge.add_death_save(success: true)
     @dying_rouge.reload
 
@@ -93,7 +93,7 @@ class CreatureTest < ActiveSupport::TestCase
   end
 
   test "#add_death_save increments failures and sets dead to true at 3" do
-    @dying_rouge.update!(death_saves_successes: 0, death_saves_failures: 2, dead: false) 
+    @dying_rouge.update!(death_saves_successes: 0, death_saves_failures: 2, dead: false)
     @dying_rouge.add_death_save(success: false)
     @dying_rouge.reload
 
