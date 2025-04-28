@@ -1,5 +1,6 @@
 class Tracker < ApplicationRecord
   has_many :creatures
+  has_many :special_events
 
   serialize :turn_order, coder: YAML
 
@@ -27,9 +28,18 @@ class Tracker < ApplicationRecord
     save!
   end
 
+  def trigger_special_events
+    tracker.special_events.each do |event|
+      if tracker.round % event.frequency == 0
+        puts "Special Event Trigged: #{event.name}"
+      end
+    end
+  end
+
   def next_round
     self.mark_active_turn
     self.round += 1
     save!
+    trigger_special_events
   end
 end
