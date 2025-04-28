@@ -2,11 +2,12 @@
 Tracker.destroy_all
 Creature.destroy_all
 Effect.destroy_all
+SpecialEvent.destroy_all
 
-# Create Tracker (Global)
+# Trackers (Global)
 tracker = Tracker.create!(round: 1, turn_order: [])
 
-# Create Effect (Global)
+# Effects (Global)
 effect1 = Effect.create!(
   name: "Chill Wind",
   description: "A cold gust that slows enemies.",
@@ -28,7 +29,7 @@ effect3 = Effect.create!(
   status_type: "debuff"
 )
 
-# Create Creatures (Global)
+# Creatures (Global)
 creatures = [
   { name: "Aragorn", role: "player", initiative: rand(1..20), dead: false, current_hp: 15, max_hp: 15, temp_hp: 0 },
   { name: "Gandalf", role: "player", initiative: rand(1..20), dead: false, current_hp: 12, max_hp: 12, temp_hp: 0 },
@@ -37,7 +38,13 @@ creatures = [
   { name: "Villager of Bywater", role: "npc", initiative: rand(1..20), dead: false, current_hp: 35, max_hp: 35, temp_hp: 0 }
 ]
 
-# Save creatures and add their IDs to the tracker's turn order
+# Special Events (Global)
+SpecialEvent.create(name: "Blizzard", description: "Bone chilling winds and heavy snow", frequency: 30)
+
+# Add special event to tracker
+SpecialEvent.create(name: "Toxic Mist", description: "Poison Mist, Con save DC 11", frequency: 15, tracker: tracker)
+
+# Add creatures to tracker
 creatures.each do |creature_data|
   creature = Creature.create!(creature_data.merge(tracker: tracker))
   tracker.turn_order << creature.id
@@ -47,4 +54,4 @@ end
 tracker.sort_turn_order
 tracker.save!
 
-puts "Seeded creature(s): #{Creature.count}, tracker(s): #{Tracker.count}, effect(s): #{Effect.count}!"
+puts "Seeded creature(s): #{Creature.count}, tracker(s): #{Tracker.count}, effect(s): #{Effect.count}, special event(s): #{SpecialEvent.count}!"
