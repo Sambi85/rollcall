@@ -20,10 +20,11 @@
   1. Tracker
   2. Creature
   3. Effect
+  4. Special Event (Die of Doom)
 
 **More on Tracker Class**
   - tracks of round (counter)
-  - tracks whose turn it is (first element in array)
+  - tracks current turn (first element in array)
   - tracks initative order (array)
   - Sorts initiative order by initative roll
   - adds combantants to intitative order
@@ -45,6 +46,12 @@
   - tracks duration
   - has a description
   - tracks creature it belongs to
+
+**More on Special Events Class**
+- tracks name
+- tracks description
+- tracks frequency
+- tracks tracker it belongs to
 
 **Manual Testing with CURL commands**
 Trackers Controller
@@ -142,10 +149,9 @@ curl -X PATCH http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/
 ```
 
 **Todo**
-  - Death Saves Counter (optional???)
-  - Die of Doom tracker (Special Event)
   - Special Abilities worth tracking (Multi attack, 15ft. reach, etc.)
   - Add Enemies on the fly (new controller, tests, fixtures)
+  - Dry out test suite, use more fixtures
   - External Facing API
   - Make CSV Import for easy combat setup
   - Make CSV Log Export for useful post combat data
