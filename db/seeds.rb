@@ -8,26 +8,32 @@ SpecialEvent.destroy_all
 tracker = Tracker.create!(round: 1, turn_order: [])
 
 # Effects (Global)
-effect1 = Effect.create!(
+Effect.create!(
   name: "Chill Wind",
   description: "A cold gust that slows enemies.",
   duration: 3,
   status_type: "debuff"
 )
 
-effect2 = Effect.create!(
+Effect.create!(
   name: "Hero's Blessing",
   description: "Increases strength and morale.",
   duration: 5,
   status_type: "buff"
 )
 
-effect3 = Effect.create!(
+Effect.create!(
   name: "Lingering Poison",
   description: "Deals damage over time.",
   duration: 4,
   status_type: "debuff"
 )
+
+# Special Events (Global)
+SpecialEvent.create!(name: "Blizzard", description: "Bone chilling winds and heavy snow", frequency: 30)
+
+# Add special event to tracker
+SpecialEvent.create!(name: "Toxic Mist", description: "Poison Mist, Con save DC 11", frequency: 15, tracker: tracker)
 
 # Creatures (Global)
 creatures = [
@@ -37,12 +43,6 @@ creatures = [
   { name: "The Pale Orc", role: "monster", initiative: rand(1..20), dead: false, current_hp: 25, max_hp: 25, temp_hp: 0 },
   { name: "Villager of Bywater", role: "npc", initiative: rand(1..20), dead: false, current_hp: 35, max_hp: 35, temp_hp: 0 }
 ]
-
-# Special Events (Global)
-SpecialEvent.create!(name: "Blizzard", description: "Bone chilling winds and heavy snow", frequency: 30)
-
-# Add special event to tracker
-SpecialEvent.create!(name: "Toxic Mist", description: "Poison Mist, Con save DC 11", frequency: 15, tracker: tracker)
 
 # Add creatures to tracker
 creatures.each do |creature_data|

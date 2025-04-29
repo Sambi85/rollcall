@@ -1,8 +1,8 @@
 class SpecialEventsController < ApplicationController
-  before_action :set_special_event, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_special_event, only: [ :show, :update, :destroy ]
 
   def index
-    @special_events = SpecialEvent.all #WIP...
+    @special_events = SpecialEvent.all
     render json: @special_events
   end
 
@@ -11,33 +11,26 @@ class SpecialEventsController < ApplicationController
   end
 
   def create
-    @special_event = SpecialEvent.new(
-      name: special_event_params[:name],
-      description: special_event_params[:description],
-      frequency: special_event_params[:frequency],
-      tracker_id: special_event_params[:tracker_id] || nil
-    )
-    if @special_event.save
-      redirect_to @special_event, notice: "Special event created."
-    else
-      render :new
-    end
-  end
+    @special_event = SpecialEvent.new(special_event_params)
 
-  def edit
+    if @special_event.save
+      render json: @special_event, status: :created
+    else
+      render json: @special_event.errors, status: :unprocessable_entity
+    end
   end
 
   def update
     if @special_event.update(special_event_params)
-      redirect_to @special_event, notice: "Special event updated."
+      render json: @special_event
     else
-      render :edit
+      render json: @special_event.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
     @special_event.destroy
-    redirect_to special_events_path, notice: "Special event deleted."
+    head :no_content  # returns a 204 No Content response
   end
 
   private
