@@ -74,4 +74,29 @@ class TrackerTest < ActiveSupport::TestCase
     @tracker.mark_active_turn
     assert_not_equal first_id, @tracker.turn_order.first
   end
+
+  test "should trigger special events based on frequency" do
+    SpecialEvent.create!(
+      name: "Storm",
+      description: "A sudden storm hits the battlefield",
+      frequency: 1,
+      tracker: @tracker
+    )
+
+    # Create another event that shouldn't trigger
+    SpecialEvent.create!(
+      name: "Earthquake",
+      description: "Shakes the ground",
+      frequency: 10,
+      tracker: @tracker
+    )
+
+    # Capture the output of puts
+    output = capture_io do
+      @tracker.trigger_special_events
+    end.first
+
+    assert_match /Special Event Trigged: Storm/, output
+    assert_no_match /Earthquake/, output
+  end
 end

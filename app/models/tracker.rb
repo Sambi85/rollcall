@@ -29,8 +29,8 @@ class Tracker < ApplicationRecord
   end
 
   def trigger_special_events
-    tracker.special_events.each do |event|
-      if tracker.round % event.frequency == 0
+    special_events.each do |event|
+      if self.round % event.frequency == 0
         puts "Special Event Trigged: #{event.name}"
       end
     end
