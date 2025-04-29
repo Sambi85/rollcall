@@ -147,15 +147,43 @@ curl -X PATCH http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/
     }
   }'
 ```
+Special Events Controller
+```bash
+curl -X GET http://localhost:3000/special_events
+curl -X GET http://localhost:3000/special_events/:special_event_id
+curl -X DELETE http://localhost:3000/special_events/:special_event_id
+
+curl -X POST http://localhost:3000/special_events \
+  -H "Content-Type: application/json" \
+  -d '{
+    "special_event": {
+      "name": "Solar Flare",
+      "description": "A massive flare affects all combatants.",
+      "frequency": 1,
+      "tracker_id": null
+    }
+  }'
+
+curl -X PUT http://localhost:3000/special_events/:special_event_id \
+  -H "Content-Type: application/json" \
+  -d '{
+    "special_event": {
+      "name": "Updated Event Name",
+      "description": "New description here.",
+      "frequency": 2
+    }
+  }'
+```
 
 **Todo**
   - Special Abilities worth tracking (Multi attack, 15ft. reach, etc.)
   - Add Enemies on the fly (new controller, tests, fixtures)
   - Allow trackers to have a name attr
+  - FE: Landing page, Tracker Show Page, etc...
   - Dry out test suite, use more fixtures
   - Apply up + down methods to migrations
   - model validations vs. migrations
-  - External Facing API
+  - Buildout External facing API for CSV Exports/Imports
   - Make CSV Import for easy combat setup
   - Make CSV Log Export for useful post combat data
   - Make readme for CSV Import/Export

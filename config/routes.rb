@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :effects, only: [ :index, :show, :create, :update, :destroy ]
+  resources :special_events, only: [ :index, :show, :create, :update, :destroy ]
 
   resources :trackers, only: [ :create, :show, :update ] do
     member do

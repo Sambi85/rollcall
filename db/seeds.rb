@@ -39,10 +39,10 @@ creatures = [
 ]
 
 # Special Events (Global)
-SpecialEvent.create(name: "Blizzard", description: "Bone chilling winds and heavy snow", frequency: 30)
+SpecialEvent.create!(name: "Blizzard", description: "Bone chilling winds and heavy snow", frequency: 30)
 
 # Add special event to tracker
-SpecialEvent.create(name: "Toxic Mist", description: "Poison Mist, Con save DC 11", frequency: 15, tracker: tracker)
+SpecialEvent.create!(name: "Toxic Mist", description: "Poison Mist, Con save DC 11", frequency: 15, tracker: tracker)
 
 # Add creatures to tracker
 creatures.each do |creature_data|
