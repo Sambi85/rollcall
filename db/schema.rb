@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_25_214956) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_28_221419) do
   create_table "creatures", force: :cascade do |t|
     t.string "name"
     t.string "role"
@@ -38,6 +38,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_25_214956) do
     t.index ["creature_id"], name: "index_effects_on_creature_id"
   end
 
+  create_table "special_events", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "frequency"
+    t.integer "tracker_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tracker_id"], name: "index_special_events_on_tracker_id"
+  end
+
   create_table "trackers", force: :cascade do |t|
     t.integer "round"
     t.datetime "created_at", null: false
@@ -47,4 +57,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_25_214956) do
 
   add_foreign_key "creatures", "trackers"
   add_foreign_key "effects", "creatures"
+  add_foreign_key "special_events", "trackers"
 end
