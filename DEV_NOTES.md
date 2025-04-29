@@ -151,7 +151,10 @@ curl -X PATCH http://localhost:3000/trackers/:tracker_id/creatures/:creature_id/
 **Todo**
   - Special Abilities worth tracking (Multi attack, 15ft. reach, etc.)
   - Add Enemies on the fly (new controller, tests, fixtures)
+  - Allow trackers to have a name attr
   - Dry out test suite, use more fixtures
+  - Apply up + down methods to migrations
+  - model validations vs. migrations
   - External Facing API
   - Make CSV Import for easy combat setup
   - Make CSV Log Export for useful post combat data
