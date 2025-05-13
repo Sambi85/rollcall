@@ -3,9 +3,9 @@ class CreateAbilities < ActiveRecord::Migration[8.0]
     create_table :abilities do |t|
       t.string :name
       t.text :description
-      t.string :usage_type
-      t.integer :default_usage_limit
-      t.integer :default_cooldown
+      t.string :usage_type, default: nil
+      t.integer :default_usage_limit, default: 0
+      t.integer :default_cooldown, default: 0
 
       t.timestamps
     end

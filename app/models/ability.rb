@@ -6,4 +6,6 @@ class Ability < ApplicationRecord
 
   validates :name, presence: true
   validates :usage_type, inclusion: { in: %w[unlimited limited cooldown] }, allow_nil: true
+  validates :default_usage_limit, numericality: { greater_than_or_equal_to: 0 }
+  validates :default_cooldown, numericality: { greater_than_or_equal_to: 0 }
 end
