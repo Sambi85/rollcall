@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :abilities
   resources :effects, only: [ :index, :show, :create, :update, :destroy ]
   resources :special_events, only: [ :index, :show, :create, :update, :destroy ]
 

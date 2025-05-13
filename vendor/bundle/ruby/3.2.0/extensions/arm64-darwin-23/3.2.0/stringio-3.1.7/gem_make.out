@@ -1,0 +1,20 @@
+current directory: /Users/mac_2025/Home_Projects/rollcall/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+/Users/mac_2025/.rbenv/versions/3.2.2/bin/ruby extconf.rb
+checking for rb_io_mode_t in ruby/io.h... no
+creating Makefile
+
+current directory: /Users/mac_2025/Home_Projects/rollcall/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250512-84425-kle9it sitelibdir\=./.gem.20250512-84425-kle9it clean
+
+current directory: /Users/mac_2025/Home_Projects/rollcall/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250512-84425-kle9it sitelibdir\=./.gem.20250512-84425-kle9it
+compiling stringio.c
+linking shared-object stringio.bundle
+ld: warning: ignoring duplicate libraries: '-lruby.3.2'
+
+current directory: /Users/mac_2025/Home_Projects/rollcall/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250512-84425-kle9it sitelibdir\=./.gem.20250512-84425-kle9it install
+/usr/bin/install -c -m 0755 stringio.bundle ./.gem.20250512-84425-kle9it
+
+current directory: /Users/mac_2025/Home_Projects/rollcall/vendor/bundle/ruby/3.2.0/gems/stringio-3.1.7/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250512-84425-kle9it sitelibdir\=./.gem.20250512-84425-kle9it clean
