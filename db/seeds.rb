@@ -1,8 +1,10 @@
+require 'pry'
 # Clear existing data
 Tracker.destroy_all
 Creature.destroy_all
 Effect.destroy_all
 SpecialEvent.destroy_all
+Ability.destroy_all
 
 # Trackers (Global)
 tracker = Tracker.create!(round: 1, turn_order: [])
@@ -35,6 +37,33 @@ SpecialEvent.create!(name: "Blizzard", description: "Bone chilling winds and hea
 # Add special event to tracker
 SpecialEvent.create!(name: "Toxic Mist", description: "Poison Mist, Con save DC 11", frequency: 15, tracker: tracker)
 
+# Add Abilities
+Ability.create!(
+  [
+    {
+      name: "Fireball",
+      description: "Deals fire damage to all enemies in a small area.",
+      usage_type: "limited",
+      default_usage_limit: 3,
+      default_cooldown: 0
+    },
+    {
+      name: "Heal",
+      description: "Restores health to an ally.",
+      usage_type: "cooldown",
+      default_usage_limit: 0,
+      default_cooldown: 2
+    },
+    {
+      name: "Berserk",
+      description: "Increase attack power but lose some defense.",
+      usage_type: "unlimited",
+      default_usage_limit: 0,
+      default_cooldown: 0
+    }
+  ]
+)
+
 # Creatures (Global)
 creatures = [
   { name: "Aragorn", role: "player", initiative: rand(1..20), dead: false, current_hp: 15, max_hp: 15, temp_hp: 0 },
@@ -54,4 +83,8 @@ end
 tracker.sort_turn_order
 tracker.save!
 
-puts "Seeded creature(s): #{Creature.count}, tracker(s): #{Tracker.count}, effect(s): #{Effect.count}, special event(s): #{SpecialEvent.count}!"
+puts "Seeded creature(s):#{Creature.count},
+tracker(s):#{Tracker.count},
+effect(s):#{Effect.count},
+special event(s):#{SpecialEvent.count},
+abilities:#{Ability.count}!"

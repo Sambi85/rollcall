@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_28_221419) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_13_040657) do
+  create_table "abilities", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "usage_type"
+    t.integer "default_usage_limit", default: 0
+    t.integer "default_cooldown", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "creatures", force: :cascade do |t|
     t.string "name"
     t.string "role"
