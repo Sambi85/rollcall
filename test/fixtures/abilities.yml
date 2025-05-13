@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
-  usage_type: MyString
+fireball:
+  name: Fireball
+  description: explosion of flames, aoe damaging spell
+  usage_type: unlimited
   default_usage_limit: 1
   default_cooldown: 1
 
-two:
-  name: MyString
-  description: MyText
-  usage_type: MyString
-  default_usage_limit: 1
-  default_cooldown: 1
+ice_dagger:
+  name: Ice Dagger
+  description: conjure a frozen dagger, deals extra frost damage
+  usage_type: 'limited'
+  default_usage_limit: 100
+  default_cooldown: 10

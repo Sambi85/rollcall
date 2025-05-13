@@ -123,7 +123,20 @@ curl -X PUT http://localhost:3000/special_events/:special_event_id \
 ```
 
 **Abilities**
-- WIP
+```bash
+curl http://localhost:3000/abilities
+curl http://localhost:3000/abilities/:ability_id
+
+curl -X POST http://localhost:3000/abilities \
+  -H "Content-Type: application/json" \
+  -d '{"ability": {"name": "Fireball", "usage_type": "limited"}}'
+
+curl -X PUT http://localhost:3000/abilities/:ability_id \
+  -H "Content-Type: application/json" \
+  -d '{"ability": {"name": "Ice Blast"}}'
+
+curl -X DELETE http://localhost:3000/abilities/:ability_id
+```
 **CreatureAbilities**
 - WIP
 **AbilitiesUsages**

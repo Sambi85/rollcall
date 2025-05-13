@@ -1,3 +1,4 @@
+require 'pry'
 # Clear existing data
 Tracker.destroy_all
 Creature.destroy_all
@@ -82,4 +83,9 @@ end
 tracker.sort_turn_order
 tracker.save!
 
-puts "Seeded creature(s): #{Creature.count}, tracker(s): #{Tracker.count}, effect(s): #{Effect.count}, special event(s): #{SpecialEvent.count}!"
+puts "Seeded creature(s): 
+#{Creature.count}, 
+#tracker(s): #{Tracker.count}, 
+#effect(s): #{Effect.count}, 
+#special event(s): #{SpecialEvent.count},
+#abilities: #{Ability.count}!"
