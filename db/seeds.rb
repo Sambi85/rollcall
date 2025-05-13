@@ -83,9 +83,8 @@ end
 tracker.sort_turn_order
 tracker.save!
 
-puts "Seeded creature(s): 
-#{Creature.count}, 
-#tracker(s): #{Tracker.count}, 
-#effect(s): #{Effect.count}, 
-#special event(s): #{SpecialEvent.count},
-#abilities: #{Ability.count}!"
+puts "Seeded creature(s):#{Creature.count},
+tracker(s):#{Tracker.count},
+effect(s):#{Effect.count},
+special event(s):#{SpecialEvent.count},
+abilities:#{Ability.count}!"
