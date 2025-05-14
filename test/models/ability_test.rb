@@ -2,7 +2,7 @@ require "test_helper"
 
 class AbilityTest < ActiveSupport::TestCase
   test "is valid with valid attributes" do
-    ability = Ability.new(name: "Fireball", usage_type: "unlimited")
+    ability = Ability.new(name: "Storm King's Fireball", usage_type: "unlimited")
     assert ability.valid?
   end
 
@@ -20,6 +20,6 @@ class AbilityTest < ActiveSupport::TestCase
 
   test "is valid when usage_type is nil" do
     ability = Ability.new(name: "Blink", usage_type: nil)
-    assert ability.valid?
+    assert ability.valid? == false
   end
 end

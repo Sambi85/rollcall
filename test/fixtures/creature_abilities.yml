@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+goblin_fireball_1:
+  creature: goblin
+  ability: fireball
+  usage_limit: 1
+  cooldown_rounds: 1
+  notes: goblin mage, main attack
+
+zombie_frostbite_1:
+  creature: zombie
+  ability: ice_dagger
+  usage_limit: 1
+  cooldown_rounds: 1
+  notes: undead wizard, last restort attack

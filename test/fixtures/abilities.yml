@@ -10,6 +10,6 @@ fireball:
 ice_dagger:
   name: Ice Dagger
   description: conjure a frozen dagger, deals extra frost damage
-  usage_type: 'limited'
+  usage_type: limited
   default_usage_limit: 100
   default_cooldown: 10

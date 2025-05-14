@@ -1,0 +1,12 @@
+<% content_for :title, "Editing creature ability" %>
+
+<h1>Editing creature ability</h1>
+
+<%= render "form", creature_ability: @creature_ability %>
+
+<br>
+
+<div>
+  <%= link_to "Show this creature ability", @creature_ability %> |
+  <%= link_to "Back to creature abilities", creature_abilities_path %>
+</div>
