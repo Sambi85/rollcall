@@ -1,5 +1,5 @@
 # === Clear existing data ===
-[AbilityUsage, CreatureAbility, Tracker, Creature, Effect, SpecialEvent, Ability].each(&:destroy_all)
+[ AbilityUsage, CreatureAbility, Tracker, Creature, Effect, SpecialEvent, Ability ].each(&:destroy_all)
 
 # === Create Tracker ===
 tracker = Tracker.create!(round: 1, turn_order: [])

@@ -19,7 +19,7 @@ class CreatureAbilitiesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create creature_ability" do
     assert_difference("CreatureAbility.count") do
-      post creature_abilities_url, params: { creature_ability: { ability_id: @ability.id, cooldown_rounds: 4, creature_id: @creature.id, notes: 'test', usage_limit: 1 } }
+      post creature_abilities_url, params: { creature_ability: { ability_id: @ability.id, cooldown_rounds: 4, creature_id: @creature.id, notes: "test", usage_limit: 1 } }
     end
 
     assert_redirected_to creature_ability_url(CreatureAbility.last)

@@ -16,9 +16,9 @@ class AbilitiesControllerTest < ActionDispatch::IntegrationTest
         ability: {
           default_cooldown: 10,
           default_usage_limit: 2,
-          description: 'test',
-          name: 'Cloud Kill',
-          usage_type: 'limited'
+          description: "test",
+          name: "Cloud Kill",
+          usage_type: "limited"
         }
       }, as: :json
     end

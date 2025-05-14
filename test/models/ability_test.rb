@@ -20,6 +20,6 @@ class AbilityTest < ActiveSupport::TestCase
 
   test "is valid when usage_type is nil" do
     ability = Ability.new(name: "Blink", usage_type: nil)
-    assert ability.valid? == false 
+    assert ability.valid? == false
   end
 end
