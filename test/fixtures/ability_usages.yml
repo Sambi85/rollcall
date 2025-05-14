@@ -1,17 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+goblin_fireball_1_usage:
   tracker: one
-  creature: one
-  ability: one
+  creature: goblin
+  ability: fireball
   used_at: 2025-05-13 18:54:10
   round_used: 1
   cooldown_remaining: 1
 
-two:
+zombie_frostbite_1_usage:
   tracker: two
-  creature: two
-  ability: two
+  creature: zombie
+  ability: ice_dagger
   used_at: 2025-05-13 18:54:10
   round_used: 1
   cooldown_remaining: 1

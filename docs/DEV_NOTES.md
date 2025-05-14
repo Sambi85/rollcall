@@ -77,7 +77,7 @@
   - Special Abilities worth tracking (Multi attack, 15ft. reach, etc.)
   - Add Enemies on the fly (new controller, tests, fixtures)
   - Allow trackers to have a name attr
-  - FE: Landing page, Tracker Show Page, etc...
+  - FE: Rails 8 views -> Landing page, Tracker Show Page, etc...
   - Dry out test suite, use more fixtures
   - Apply up + down methods to migrations
   - model validations vs. migrations

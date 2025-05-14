@@ -4,15 +4,18 @@ class AbilityUsagesController < ApplicationController
   # GET /ability_usages or /ability_usages.json
   def index
     @ability_usages = AbilityUsage.all
+    render json: @ability_usages
   end
 
   # GET /ability_usages/1 or /ability_usages/1.json
   def show
+    render json: @ability_usage
   end
 
   # GET /ability_usages/new
   def new
     @ability_usage = AbilityUsage.new
+    render json: @ability_usage
   end
 
   # GET /ability_usages/1/edit
@@ -58,12 +61,11 @@ class AbilityUsagesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_ability_usage
       @ability_usage = AbilityUsage.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def ability_usage_params
       params.expect(ability_usage: [ :tracker_id, :creature_id, :ability_id, :used_at, :round_used, :cooldown_remaining ])
     end

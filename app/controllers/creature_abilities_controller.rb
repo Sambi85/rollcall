@@ -4,15 +4,18 @@ class CreatureAbilitiesController < ApplicationController
   # GET /creature_abilities or /creature_abilities.json
   def index
     @creature_abilities = CreatureAbility.all
+    render json: @creature_abilities
   end
 
   # GET /creature_abilities/1 or /creature_abilities/1.json
   def show
+    render json: @creature_ability
   end
 
   # GET /creature_abilities/new
   def new
     @creature_ability = CreatureAbility.new
+    render json: @creature_ability
   end
 
   # GET /creature_abilities/1/edit
@@ -58,12 +61,11 @@ class CreatureAbilitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_creature_ability
       @creature_ability = CreatureAbility.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
     def creature_ability_params
       params.expect(creature_ability: [ :creature_id, :ability_id, :usage_limit, :cooldown_rounds, :notes ])
     end

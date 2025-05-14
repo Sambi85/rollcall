@@ -2,7 +2,7 @@ require "test_helper"
 
 class AbilityUsagesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @ability_usage = ability_usages(:one)
+    @ability_usage = ability_usages(:goblin_fireball_1_usage)
   end
 
   test "should get index" do
