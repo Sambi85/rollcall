@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_13_040657) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_13_235410) do
   create_table "abilities", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -19,6 +19,32 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_13_040657) do
     t.integer "default_cooldown", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ability_usages", force: :cascade do |t|
+    t.integer "tracker_id", null: false
+    t.integer "creature_id", null: false
+    t.integer "ability_id", null: false
+    t.datetime "used_at"
+    t.integer "round_used", default: 0
+    t.integer "cooldown_remaining", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ability_id"], name: "index_ability_usages_on_ability_id"
+    t.index ["creature_id"], name: "index_ability_usages_on_creature_id"
+    t.index ["tracker_id"], name: "index_ability_usages_on_tracker_id"
+  end
+
+  create_table "creature_abilities", force: :cascade do |t|
+    t.integer "creature_id", null: false
+    t.integer "ability_id", null: false
+    t.integer "usage_limit", default: 0
+    t.integer "cooldown_rounds", default: 0
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ability_id"], name: "index_creature_abilities_on_ability_id"
+    t.index ["creature_id"], name: "index_creature_abilities_on_creature_id"
   end
 
   create_table "creatures", force: :cascade do |t|
@@ -65,6 +91,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_13_040657) do
     t.text "turn_order", default: "--- []"
   end
 
+  add_foreign_key "ability_usages", "abilities"
+  add_foreign_key "ability_usages", "creatures"
+  add_foreign_key "ability_usages", "trackers"
+  add_foreign_key "creature_abilities", "abilities"
+  add_foreign_key "creature_abilities", "creatures"
   add_foreign_key "creatures", "trackers"
   add_foreign_key "effects", "creatures"
   add_foreign_key "special_events", "trackers"

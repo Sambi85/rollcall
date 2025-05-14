@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :abilities
+  resources :creature_abilities
+  resources :ability_usages
   resources :effects
   resources :special_events
 
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
       put "reset_death_saves"
       put "add_death_save"
       resources :effects, controller: "creature_effects"
+      resources :creature_abilities
     end
   end
 

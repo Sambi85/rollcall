@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  creature: one
+  ability: one
+  usage_limit: 1
+  cooldown_rounds: 1
+  notes: MyText
+
+two:
+  creature: two
+  ability: two
+  usage_limit: 1
+  cooldown_rounds: 1
+  notes: MyText

@@ -1,6 +1,7 @@
 class Tracker < ApplicationRecord
-  has_many :creatures
   has_many :special_events
+  has_many :creatures, dependent: :destroy
+  has_many :ability_usages, dependent: :destroy
 
   serialize :turn_order, coder: YAML
 

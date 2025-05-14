@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Ability usages" %>
+
+<h1>Ability usages</h1>
+
+<div id="ability_usages">
+  <% @ability_usages.each do |ability_usage| %>
+    <%= render ability_usage %>
+    <p>
+      <%= link_to "Show this ability usage", ability_usage %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New ability usage", new_ability_usage_path %>

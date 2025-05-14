@@ -1,6 +1,9 @@
 class Creature < ApplicationRecord
   belongs_to :tracker, optional: true
   has_many :effects, dependent: :destroy
+  has_many :creature_abilities, dependent: :destroy
+  has_many :abilities, through: :creature_abilities
+  has_many :ability_usages, dependent: :destroy
 
   validates :name, presence: true
 
