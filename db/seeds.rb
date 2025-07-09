@@ -1,5 +1,5 @@
 # === Clear existing data ===
-[ AbilityUsage, 
+[ AbilityUsage,
   CreatureAbility,
   Tracker,
   Creature,

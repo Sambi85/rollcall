@@ -11,7 +11,7 @@ class CreatureTest < ActiveSupport::TestCase
   end
 
   test "create creature without a tracker id" do
-    Creature.create!(name: 'Test Creature')
+    Creature.create!(name: "Test Creature")
     assert @creature.valid?
   end
 
