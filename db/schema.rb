@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_13_235410) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_09_003515) do
   create_table "abilities", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -54,7 +54,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_13_235410) do
     t.boolean "dead"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "tracker_id", null: false
+    t.integer "tracker_id"
     t.integer "current_hp", default: 0, null: false
     t.integer "max_hp", default: 0, null: false
     t.integer "temp_hp", default: 0, null: false
