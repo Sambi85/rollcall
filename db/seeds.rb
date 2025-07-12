@@ -1,5 +1,12 @@
 # === Clear existing data ===
-[ AbilityUsage, CreatureAbility, Tracker, Creature, Effect, SpecialEvent, Ability ].each(&:destroy_all)
+[ AbilityUsage,
+  CreatureAbility,
+  Tracker,
+  Creature,
+  Effect,
+  SpecialEvent,
+  Ability
+].each(&:destroy_all)
 
 # === Create Tracker ===
 tracker = Tracker.create!(round: 1, turn_order: [])
@@ -33,10 +40,16 @@ creature_data = [
   { name: "Villager of Bywater", role: "npc", max_hp: 35 }
 ]
 
+# without asssociated tracker ids
+Creature.create!(name: "Ogre Daddy")
+Creature.create!(name: "Cold Slime")
+Creature.create!(name: "Double-Headed Dragon")
+
+# with tracker ids
 creatures = creature_data.map do |data|
   creature = Creature.create!(
     data.merge(
-      tracker: tracker,
+      tracker_id: tracker.index_by,
       current_hp: data[:max_hp],
       temp_hp: 0,
       initiative: rand(1..20),

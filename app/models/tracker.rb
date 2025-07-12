@@ -12,6 +12,7 @@ class Tracker < ApplicationRecord
   end
 
   def add_combatant(creature)
+    creature.tracker_id = self.id
     self.turn_order << creature.id
     self.sort_turn_order
     save!

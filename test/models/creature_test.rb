@@ -10,6 +10,11 @@ class CreatureTest < ActiveSupport::TestCase
     @buffed_creature = creatures(:buffed_devil)
   end
 
+  test "create creature without a tracker id" do
+    Creature.create!(name: "Test Creature")
+    assert @creature.valid?
+  end
+
   test "should be valid with valid attributes" do
     assert @creature.valid?
   end
