@@ -13,7 +13,13 @@ class TrackerTest < ActiveSupport::TestCase
 
   test "should initialize with empty turn_order by default" do
     tracker = Tracker.new
+    
     assert_equal [], tracker.turn_order
+  end
+
+  test "should take a name" do
+    tracker = Tracker.create!(name: 'Default Name')
+    assert_equal tracker.name, 'Default Name'
   end
 
   test "should have many creatures" do
