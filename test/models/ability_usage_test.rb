@@ -55,4 +55,3 @@ class AbilityUsageTest < ActiveSupport::TestCase
     assert_equal 0, usage.cooldown_remaining
   end
 end
-
