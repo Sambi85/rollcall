@@ -1,5 +1,4 @@
 **Todo List**
-  - Unit tests: CreatureAbility, Ability Usage
   - FE: Rails 8 views -> Landing page, Tracker Show Page, etc...
   - Dry out test suite, use more fixtures
   - Apply up + down methods to migrations
