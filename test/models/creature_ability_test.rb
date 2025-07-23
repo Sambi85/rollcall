@@ -3,7 +3,7 @@ require "test_helper"
 class CreatureAbilityTest < ActiveSupport::TestCase
   def setup
     @creature = Creature.create!(name: "Orc")
-    @ability = Ability.create!(name: "Rage", usage_type: "encounter")
+    @ability = Ability.create!(name: "Rage", usage_type: "limited")
 
     @creature_ability = CreatureAbility.new(
       creature: @creature,

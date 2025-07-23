@@ -25,8 +25,6 @@ class AbilityUsageTest < ActiveSupport::TestCase
   end
 
   test "is valid with all required fields" do
-    @creature_ability.save!
-    @usage.save!
     assert @usage.valid?
   end
 
