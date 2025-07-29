@@ -21,6 +21,7 @@
   7. AbilityUsages (tracks abilities usage per combat tracker, helps with battle history/reporting)
 
 **Tracker Details**
+  - tracks its name
   - tracks of round (counter)
   - tracks current turn (first element in array)
   - tracks initative order (array)
@@ -29,7 +30,7 @@
   - marks active turn in initative order
 
 **Creature Details**
-  - tracks name
+  - tracks its name
   - role (player, NPC, or monster)
   - initative roll
   - dead attr + methods to kill creature
