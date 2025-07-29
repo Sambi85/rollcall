@@ -12,6 +12,8 @@ class AbilityUsage < ApplicationRecord
   private
 
   def creature_has_ability
+    return unless creature
+
     unless creature.abilities.include?(ability)
       errors.add(:ability, "is not assigned to this creature")
     end

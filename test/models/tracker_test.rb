@@ -16,6 +16,11 @@ class TrackerTest < ActiveSupport::TestCase
     assert_equal [], tracker.turn_order
   end
 
+  test "should take a name" do
+    tracker = Tracker.create!(name: "Default Name")
+    assert_equal tracker.name, "Default Name"
+  end
+
   test "should have many creatures" do
     assert_equal 2, @tracker.creatures.count
   end
