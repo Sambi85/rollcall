@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "pages/home"
+  root "pages#home"
+
   resources :abilities
   resources :creature_abilities
   resources :ability_usages
