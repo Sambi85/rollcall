@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+meteor_swarm:
+  name: Meteor Swarm
+  description: 50ft radius, 10d10 + 40 fire damage 
+  frequency: 5
+  tracker: one
+
+fire_storm:
+  name: Fire Storm
+  description: 20ft radius, 5d6 fire damage per turn
+  frequency: 1
+  tracker: two

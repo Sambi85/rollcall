@@ -1,0 +1,47 @@
+<%= form_with(model: ability_usage) do |form| %>
+  <% if ability_usage.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(ability_usage.errors.count, "error") %> prohibited this ability_usage from being saved:</h2>
+
+      <ul>
+        <% ability_usage.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :tracker_id, style: "display: block" %>
+    <%= form.text_field :tracker_id %>
+  </div>
+
+  <div>
+    <%= form.label :creature_id, style: "display: block" %>
+    <%= form.text_field :creature_id %>
+  </div>
+
+  <div>
+    <%= form.label :ability_id, style: "display: block" %>
+    <%= form.text_field :ability_id %>
+  </div>
+
+  <div>
+    <%= form.label :used_at, style: "display: block" %>
+    <%= form.datetime_field :used_at %>
+  </div>
+
+  <div>
+    <%= form.label :round_used, style: "display: block" %>
+    <%= form.number_field :round_used %>
+  </div>
+
+  <div>
+    <%= form.label :cooldown_remaining, style: "display: block" %>
+    <%= form.number_field :cooldown_remaining %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

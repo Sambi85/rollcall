@@ -1,0 +1,12 @@
+<% content_for :title, "Editing ability usage" %>
+
+<h1>Editing ability usage</h1>
+
+<%= render "form", ability_usage: @ability_usage %>
+
+<br>
+
+<div>
+  <%= link_to "Show this ability usage", @ability_usage %> |
+  <%= link_to "Back to ability usages", ability_usages_path %>
+</div>

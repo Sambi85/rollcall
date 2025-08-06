@@ -1,14 +1,29 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :abilities
+  resources :creature_abilities
+  resources :ability_usages
+  resources :effects
+  resources :special_events
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  resources :trackers, only: [ :create, :show, :update ] do
+    member do
+      put "add_combatant"
+      put "next_round"
+      get "get_initiative_order"
+      get "get_dead_combatants"
+    end
+    resources :creatures, only: [ :create, :show, :update ] do
+      put "mark_dead"
+      put "mark_alive"
+      put "receive_damage"
+      put "heal"
+      put "reset_death_saves"
+      put "add_death_save"
+      resources :effects, controller: "creature_effects"
+      resources :creature_abilities
+    end
+  end
+
+  # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
 end

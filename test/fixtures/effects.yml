@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Poison
+  description: Disadvantage on attack rolls and saving throws 
+  duration: 1
+  status_type: debuff
+  creature_id:
+
+two:
+  name: Paralyzed
+  description: Can't movement, actions or bonus actions
+  duration: 4
+  status_type: debuff
+  creature_id:
+
+three:
+  name: "Frozen Touch"
+  description: "Chills the target to the bone."
+  duration: 2
+  status_type: "debuff"
+  creature: skeleton
+
+four:
+  name: "Rotten Aura"
+  description: "Weakens nearby heroes."
+  duration: 3
+  status_type: "debuff"
+  creature: zombie

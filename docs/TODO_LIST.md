@@ -1,0 +1,9 @@
+**Todo List**
+  - FE: Rails 8 views -> Landing page, Tracker Show Page, etc...
+  - Dry out test suite, use more fixtures
+  - Apply up + down methods to migrations
+  - model validations vs. migrations
+  - Buildout External facing API for CSV Exports/Imports
+  - Make CSV Import for easy combat setup
+  - Make CSV Log Export for useful post combat data
+  - Make readme for CSV Import/Export
