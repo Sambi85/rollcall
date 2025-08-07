@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   get "pages/home"
+  get '/dashboard', to: 'dashboards#show'
   root "pages#home"
 
   resources :abilities
+  resources :creatures
   resources :creature_abilities
   resources :ability_usages
   resources :effects
