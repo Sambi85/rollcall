@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "pages#home"
 
   resources :abilities
-  resources :creatures
+  resources :creatures, only: :index
   resources :creature_abilities
   resources :ability_usages
   resources :effects
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       get "get_initiative_order"
       get "get_dead_combatants"
     end
-    resources :creatures, only: [ :create, :show, :update ] do
+    resources :creatures, only: [ :create, :index, :show, :update ] do
       put "mark_dead"
       put "mark_alive"
       put "receive_damage"

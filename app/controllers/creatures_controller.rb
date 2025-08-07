@@ -1,6 +1,16 @@
 class CreaturesController < ApplicationController
-  before_action :set_tracker
+  before_action :set_tracker, except: [ :index ]
   before_action :set_creature, only: [ :mark_dead, :mark_alive, :receive_damage, :heal, :reset_death_saves, :add_death_save ]
+
+  #GET /creatures
+  def index
+    if params[:tracker_id]
+      @tracker = Tracker.find(params[:tracker_id])
+      @creatures = @tracker.creatures
+    else
+      @creatures = Creature.all # Top-level route, all creatures
+    end
+  end
 
   # POST /trackers/:tracker_id/creatures
   def create

@@ -1,0 +1,9 @@
+<h1>Creatures</h1>
+
+<ul>
+  <% @creatures.each do |creature| %>
+    <li>
+      <%= creature.name %> - Initiative: <%= creature.initiative %>
+    </li>
+  <% end %>
+</ul>
