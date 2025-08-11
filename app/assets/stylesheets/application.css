@@ -9,4 +9,17 @@
  * Consider organizing styles into separate files for maintainability.
  */
 
- @import "themes/dark";
+@font-face {
+  font-family: 'UnifrakturCook';
+  src: url('/assets/unifraktur_cook/UnifrakturCook-Regular.woff2') format('woff2'),
+    url('/assets/unifraktur_cook/UnifrakturCook-Regular.woff') format('woff'),
+    url('/assets/unifraktur_cook/UnifrakturCook-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1, h2 {
+  font-family: 'UnifrakturCook', cursive !important;
+  font-weight: normal; /* make sure no bolding */
+}

@@ -1,37 +1,37 @@
 <div class="p-6 max-w-5xl mx-auto space-y-10">
 
   <!-- Welcome --> 
-  <h1 class="text-3xl font-bold">
-    Welcome <%= defined?(current_user) && current_user&.name || "Game Master" %> 👋
+  <h1 class="text-3xl font-bold" style="font-family: 'UnifrakturCook', cursive;" >
+    Welcome, <%= defined?(current_user) && current_user&.name || "Game Master" %> 👋
   </h1>
 
-  <!-- Active Trackers -->
-  <div>
-    <h2 class="text-2xl font-semibold mb-4">📋 Active Trackers</h2>
+<!-- Active Trackers -->
+<div>
+  <h2 class="text-2xl font-semibold mb-4 text-white">⏳ Active Combat Encounters</h2>
 
-    <% if @trackers.any? %>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <% @trackers.each do |tracker| %>
-          <div class="border rounded-lg p-4 shadow bg-white">
-            <h3 class="text-xl font-bold mb-1"><%= tracker.name %></h3>
-            <p class="text-sm text-gray-500">Round: <%= tracker.round %> | Turn: <%= tracker.current_turn_name %></p>
+  <% if @trackers.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% @trackers.each do |tracker| %>
+        <div class="border rounded-lg p-4 shadow bg-gray-800 text-white">
+          <h3 class="text-xl font-bold mb-1"><%= tracker.name %></h3>
+          <p class="text-sm text-gray-300">Round: <%= tracker.round %> | Turn: <%= tracker.current_turn_name %></p>
 
-            <div class="mt-4 flex gap-2">
-              <%= link_to "Resume", tracker_path(tracker), class: "bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700" %>
-              <%= link_to "View", tracker_path(tracker), class: "bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700" %>
-              <%= button_to "Delete", tracker_path(tracker), method: :delete, class: "bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700", data: { turbo_confirm: "Are you sure?" } %>
-            </div>
+          <div class="mt-4 flex gap-2">
+            <%= link_to "Resume", tracker_path(tracker), class: "bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700" %>
+            <%= link_to "View", tracker_path(tracker), class: "bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700" %>
+            <%= button_to "Delete", tracker_path(tracker), method: :delete, class: "bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700", data: { turbo_confirm: "Are you sure?" } %>
           </div>
-        <% end %>
-      </div>
-    <% else %>
-      <p class="text-gray-500">You have no active trackers. Create one below to get started!</p>
-    <% end %>
-  </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-gray-400">You have no active trackers. Create one below to get started!</p>
+  <% end %>
+</div>
 
   <!-- Create New Tracker -->
   <div>
-    <h2 class="text-2xl font-semibold mb-4">➕ Create New Tracker</h2>
+    <h2 class="text-2xl font-semibold mb-4">🪶 Create Combat Encounter</h2>
     <%= form_with model: Tracker.new, url: trackers_path, class: "flex gap-2" do |f| %>
       <%= f.text_field :name, placeholder: "Tracker name", class: "border p-2 rounded w-full" %>
       <%= f.submit "Start", class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
@@ -39,14 +39,14 @@
   </div>
 
   <!-- Global Resources -->
-  <div>
-    <h2 class="text-2xl font-semibold mb-4">📚 Global Resources</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <%= link_to "Creatures (#{@saved_creatures.count})", creatures_path, class: "block p-4 bg-white rounded shadow hover:bg-gray-100 text-center" %>
-      <%= link_to "Abilities (#{@global_abilities.count})", abilities_path, class: "block p-4 bg-white rounded shadow hover:bg-gray-100 text-center" %>
-      <%= link_to "Effects (#{@global_effects.count})", effects_path, class: "block p-4 bg-white rounded shadow hover:bg-gray-100 text-center" %>
-      <%= link_to "Special Events (#{@special_events.count})", special_events_path, class: "block p-4 bg-white rounded shadow hover:bg-gray-100 text-center" %>
-    </div>
+<!-- Global Resources -->
+<div>
+  <h2 class="text-2xl font-semibold mb-4 text-white">🕯️ Archives</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <%= link_to "Creatures (#{@saved_creatures.count})", creatures_path, class: "block p-4 bg-gray-800 rounded shadow hover:bg-gray-700 text-white text-center" %>
+    <%= link_to "Abilities (#{@global_abilities.count})", abilities_path, class: "block p-4 bg-gray-800 rounded shadow hover:bg-gray-700 text-white text-center" %>
+    <%= link_to "Effects (#{@global_effects.count})", effects_path, class: "block p-4 bg-gray-800 rounded shadow hover:bg-gray-700 text-white text-center" %>
+    <%= link_to "Special Events (#{@special_events.count})", special_events_path, class: "block p-4 bg-gray-800 rounded shadow hover:bg-gray-700 text-white text-center" %>
   </div>
-
+</div>
 </div>
