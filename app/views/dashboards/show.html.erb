@@ -7,7 +7,7 @@
 
 <!-- Active Trackers -->
 <div>
-  <h2 class="text-2xl font-semibold mb-4 text-white">⏳ Active Combat Encounters</h2>
+  <h2 class="text-2xl font-semibold mb-4 text-white">⏳ Active Encounters</h2>
 
   <% if @trackers.any? %>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -31,17 +31,16 @@
 
   <!-- Create New Tracker -->
   <div>
-    <h2 class="text-2xl font-semibold mb-4">🪶 Create Combat Encounter</h2>
+    <h2 class="text-2xl font-semibold mb-4">🪶 Create Encounter</h2>
     <%= form_with model: Tracker.new, url: trackers_path, class: "flex gap-2" do |f| %>
       <%= f.text_field :name, placeholder: "Tracker name", class: "border p-2 rounded w-full" %>
       <%= f.submit "Start", class: "bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" %>
     <% end %>
   </div>
 
-  <!-- Global Resources -->
 <!-- Global Resources -->
 <div>
-  <h2 class="text-2xl font-semibold mb-4 text-white">🕯️ Archives</h2>
+  <h2 class="text-2xl font-semibold mb-4 text-white">🕯️ Resource Archives </h2>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
     <%= link_to "Creatures (#{@saved_creatures.count})", creatures_path, class: "block p-4 bg-gray-800 rounded shadow hover:bg-gray-700 text-white text-center" %>
     <%= link_to "Abilities (#{@global_abilities.count})", abilities_path, class: "block p-4 bg-gray-800 rounded shadow hover:bg-gray-700 text-white text-center" %>
