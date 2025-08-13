@@ -46,7 +46,7 @@ class Tracker < ApplicationRecord
   end
 
   def current_turn_name
-    return "N/A" if turn_order.empty?
+    return "Unknown" if turn_order.empty?
     creature = Creature.find_by(id: turn_order.first)
     creature&.name || "Unknown"
   end
