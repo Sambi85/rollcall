@@ -6,6 +6,7 @@
 @layer base {
   html, body {
     @apply bg-black text-white min-h-screen;
+    font-family: 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   }
   h1, h2, h3 {
     font-family: 'UnifrakturCook', ui-sans-serif, system-ui, sans-serif;
