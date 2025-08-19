@@ -9,6 +9,7 @@ class Tracker < ApplicationRecord
 
   def set_defaults
     self.turn_order ||= []
+    self.round ||= 1
   end
 
   def add_combatant(creature)
@@ -25,16 +26,31 @@ class Tracker < ApplicationRecord
     save!
   end
 
-  def mark_active_turn
+  def advance_turn
+    return if turn_order.empty?
+
     turn_order.rotate!
+    # increment round only if we've cycled back to the first creature
+    self.round += 1 if turn_order.first == first_before_rotate
     save!
+    trigger_special_events
+  end
+
+  def first_before_rotate
+    @last_first ||= turn_order.first
+  end
+
+  def current_turn
+    Creature.find_by(id: turn_order.first)
+  end
+
+  def turn_order_entities
+    turn_order.map { |id| Creature.find_by(id: id) || SpecialEvent.find_by(id: id) }.compact
   end
 
   def trigger_special_events
     special_events.each do |event|
-      if self.round % event.frequency == 0
-        puts "Special Event Trigged: #{event.name}"
-      end
+      puts "Special Event Triggered: #{event.name}" if self.round % event.frequency == 0
     end
   end
 
@@ -46,8 +62,6 @@ class Tracker < ApplicationRecord
   end
 
   def current_turn_name
-    return "Unknown" if turn_order.empty?
-    creature = Creature.find_by(id: turn_order.first)
-    creature&.name || "Unknown"
+    current_turn&.name || "Unknown"
   end
 end

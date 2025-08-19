@@ -1,10 +1,25 @@
 class TrackersController < ApplicationController
-  before_action :set_tracker, only: [ :next_round, :get_initiative_order, :get_dead_combatants ]
+  before_action :set_tracker, only: [ :resume, :next_round, :get_initiative_order, :get_dead_combatants ]
+
+  def resume
+    @turn_order = @tracker.turn_order_entities
+  end
 
   # PUT trackers/:id/next_round
   def next_round
     @tracker.next_round
     render json: { round: @tracker.round }, status: :ok
+  end
+
+  # PUT /trackers/:id/next_turn
+  def next_turn
+    @tracker.advance_turn
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to resume_tracker_path(@tracker) }
+      format.json { render json: { round: @tracker.round, current_turn: @tracker.current_turn_name } }
+    end
   end
 
   # GET trackers/:id/get_initiative_order

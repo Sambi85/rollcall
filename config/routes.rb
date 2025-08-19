@@ -14,8 +14,10 @@ Rails.application.routes.draw do
     member do
       put "add_combatant"
       put "next_round"
+      put :next_turn
       get "get_initiative_order"
       get "get_dead_combatants"
+      get :resume
     end
     resources :creatures, only: [ :create, :index, :show, :update ] do
       put "mark_dead"
