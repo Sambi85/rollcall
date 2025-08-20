@@ -14,47 +14,51 @@
       </svg>
     </a>
   </div>
-  <!-- Carousel of cards -->
-  <div class="overflow-x-auto">
-    <div class="flex space-x-4">
-      <% @turn_order.each do |entity| %>
-        <div class="min-w-[250px] bg-white rounded-2xl shadow-lg p-4 flex-shrink-0">
-          <h3 class="text-xl font-bold mb-2"><%= entity.name %></h3>
+  
+  <!-- Carousel with spacing -->
+  <div class="my-4 overflow-hidden bg-gray-800 rounded-2xl p-4">
+    <div data-controller="carousel" class="overflow-hidden">
+      <div data-carousel-target="viewport" class="overflow-hidden">
+        <div class="flex space-x-2 px-2">
+          <% @turn_order.each_with_index do |entity, index| %>
+            <% 
+              is_current = entity == @tracker.current_turn
+              has_acted = @tracker.acted_this_round.include?(entity) rescue false
+              is_special = entity.try(:special_event?) || false
 
-          <% if entity.respond_to?(:initiative) %>
-            <p class="text-gray-700">Initiative: <%= entity.initiative || "Unknown" %></p>
-          <% end %>
+              card_classes =
+                if is_current
+                  "min-w-[250px] bg-red-800 border-2 border-white text-white"
+                elsif is_special
+                  "min-w-[250px] bg-purple-700 text-white"
+                elsif has_acted
+                  "min-w-[250px] bg-gray-600 text-gray-300"
+                else
+                  "min-w-[250px] bg-gray-300 text-black"
+                end
+            %>
 
-          <% if entity.respond_to?(:effects) && entity.effects.any? %>
-            <div class="mt-2">
-              <h4 class="font-semibold">Effects:</h4>
-              <ul class="list-disc list-inside text-sm">
-                <% entity.effects.each do |effect| %>
-                  <li><%= effect.name %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
+            <div class="<%= card_classes %> rounded-2xl shadow-lg p-4 flex-shrink-0 relative">
+              <!-- Number label -->
+              <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                <%= index + 1 %>
+              </div>
 
-          <% if entity.respond_to?(:abilities) && entity.abilities.any? %>
-            <div class="mt-2">
-              <h4 class="font-semibold">Abilities:</h4>
-              <ul class="list-disc list-inside text-sm">
-                <% entity.abilities.each do |ability| %>
-                  <li><%= ability.name %></li>
-                <% end %>
-              </ul>
+              <h3 class="text-xl font-bold mb-2"><%= entity.name %></h3>
+              <% if entity.respond_to?(:initiative) %>
+                <p>Initiative: <%= entity.initiative || "Unknown" %></p>
+              <% end %>
             </div>
           <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
-      <!-- Current Round / Active Creature -->
-  <div class="mb-4 bg-gray-800 rounded-lg p-4 shadow-md">
+
+  <!-- Current Round / Active Creature with spacing -->
+  <div class="my-4 bg-gray-800 rounded-lg p-4 shadow-md">
     <p class="text-lg font-semibold text-white">
       Turn: <%= @tracker.current_turn_name %> | Round: <%= @tracker.round %>
     </p>
   </div>
-
 </div>
