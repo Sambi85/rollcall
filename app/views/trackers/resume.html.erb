@@ -68,22 +68,27 @@
     </div>
   </div>
 
-<!-- Current Round (JS will toggle red/gray) -->
 <% current_creature_turn = @tracker.current_turn %>
-<div id="current-round" class="flex gap-2 w-full my-4">
-  <div class="stat-box bg-gray-900 rounded-2xl p-3 shadow-md text-center text-white flex-1">
-    <p class="font-semibold text-sm">Turn</p>
-    <p class="text-lg"><%= current_creature_turn.name %></p>
-  </div>
-  <div class="stat-box bg-gray-900 rounded-2xl p-3 shadow-md text-center text-white flex-1">
-    <p class="font-semibold text-sm">Role</p>
-    <p class="text-lg"><%= current_creature_turn.try(:role) || "Unknown" %></p>
-  </div>
-  <div class="stat-box bg-gray-900 rounded-2xl p-3 shadow-md text-center text-white flex-1">
-    <p class="font-semibold text-sm">Round</p>
-    <p class="text-lg"><%= @tracker.round %></p>
+<div id="current-round" class="bg-gray-900 rounded-2xl p-4 my-4 shadow-lg text-white">
+  <div class="max-w-4xl grid grid-cols-3 gap-2 text-sm">
+
+    <div class="stat-box bg-gray-800 p-2 rounded-lg text-center">
+      <p class="font-semibold">Turn</p>
+      <p class="value"><%= current_creature_turn.name %></p>
+    </div>
+
+    <div class="stat-box bg-gray-800 p-2 rounded-lg text-center">
+      <p class="font-semibold">Role</p>
+      <p class="value"><%= current_creature_turn.try(:role) || "Unknown" %></p>
+    </div>
+
+    <div class="stat-box bg-gray-800 p-2 rounded-lg text-center">
+      <p class="font-semibold">Round</p>
+      <p class="value"><%= @tracker.round %></p>
+    </div>
   </div>
 </div>
+
 
 
  <!-- Creature Stats (dynamic on card click) -->
