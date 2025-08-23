@@ -2,45 +2,58 @@
   <div class="flex items-center justify-between w-full mb-6">
     <h1 class="text-3xl font-bold"><%= @tracker.name || "Nameless Encounter" %></h1>
 
-    <a href="/dashboard" 
-       class="space-x-1 text-sm font-medium text-gray-700 hover:text-gray-900">
-      <svg xmlns="http://www.w3.org/2000/svg" 
-         width="24" 
-         height="24"
-         viewBox="0 0 24 24" 
-         fill="none" 
-         stroke="white">
+    <a href="/dashboard" class="space-x-1 text-sm font-medium text-gray-700 hover:text-gray-900">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white">
         <path d="M7 10L3 6l4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a>
   </div>
-  
-  <!-- Carousel with spacing -->
+
+  <!-- Carousel -->
   <div class="my-4 overflow-hidden bg-gray-800 rounded-2xl p-4">
-    <div data-controller="carousel" class="overflow-hidden">
+    <!-- Pass current turn id to Stimulus (+ correct target names) -->
+    <div
+      data-controller="carousel"
+      data-carousel-current-id-value="<%= @tracker.current_turn&.id %>"
+    >
+      <!-- Embla viewport -->
       <div data-carousel-target="viewport" class="overflow-hidden">
+        <!-- Embla container (MUST wrap all slides) -->
         <div class="flex space-x-2 px-2">
           <% @turn_order.each_with_index do |entity, index| %>
-            <% 
-              is_current = entity == @tracker.current_turn
-              has_acted = @tracker.acted_this_round.include?(entity) rescue false
-              is_special = entity.try(:special_event?) || false
+            <% is_current = (entity == @tracker.current_turn)
+               has_acted  = (@tracker.acted_this_round.include?(entity) rescue false)
+               is_special = (entity.try(:special_event?) || false)
 
-              card_classes =
-                if is_current
-                  "min-w-[250px] bg-red-800 border-2 border-white text-white"
-                elsif is_special
-                  "min-w-[250px] bg-purple-700 text-white"
-                elsif has_acted
-                  "min-w-[250px] bg-gray-600 text-gray-300"
-                else
-                  "min-w-[250px] bg-gray-300 text-black"
-                end
+               base = "min-w-[250px] flex-none rounded-2xl shadow-lg p-4 relative cursor-pointer"
+               card_classes =
+                 if is_current
+                   "#{base} bg-red-800 text-white"
+                 elsif is_special
+                   "#{base} bg-purple-700 text-white"
+                 elsif has_acted
+                   "#{base} bg-gray-600 text-gray-300"
+                 else
+                   "#{base} bg-gray-300 text-black"
+                 end
             %>
 
-            <div class="<%= card_classes %> rounded-2xl shadow-lg p-4 flex-shrink-0 relative">
-              <!-- Number label -->
-              <div class="absolute top-2 left-2 bg-black bg-opacity-50 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+            <!-- Embla slide -->
+            <div
+          class="<%= card_classes %>"
+          data-carousel-target="card"
+          data-action="click->carousel#selectCard"
+          data-card-id="<%= entity.id %>"
+          data-name="<%= entity.name %>"
+          data-role="<%= entity.try(:role) || 'Creature' %>"
+          data-initiative="<%= entity.try(:initiative) || 'Unknown' %>"
+          data-hp-current="<%= entity.try(:current_hp) || 0 %>"
+          data-hp-max="<%= entity.try(:max_hp) || 0 %>"
+          data-ac="<%= entity.try(:ac) || 'Unknown' %>"
+          data-speed="<%= entity.try(:speed) || 'Unknown' %>"
+          data-is-current="<%= is_current %>"
+        >
+              <div class="absolute top-2 left-2 bg-black/50 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
                 <%= index + 1 %>
               </div>
 
@@ -55,47 +68,49 @@
     </div>
   </div>
 
-  <!-- CONDITION -->
-  <% creature = @tracker.current_turn %>
-  <% role = creature.try(:role) || "Creature" %>
-  <% is_current_turn = creature.present? && creature == @tracker.current_turn %>
-
-  <!-- Current Round -->
-  <div class="my-4 rounded-lg p-4 shadow-md text-left 
-              <%= is_current_turn ? 'bg-red-800 text-white' : 'bg-gray-800 text-white' %>">
-    <p class="font-semibold">
-      Round: <%= @tracker.round %>   |   Current Turn: <strong><%= creature.name %></strong>   |   Role: <%= role %>
-    </p>
+<!-- Current Round (JS will toggle red/gray) -->
+<% current_creature_turn = @tracker.current_turn %>
+<div id="current-round" class="flex gap-2 w-full my-4">
+  <div class="stat-box bg-gray-900 rounded-2xl p-3 shadow-md text-center text-white flex-1">
+    <p class="font-semibold text-sm">Turn</p>
+    <p class="text-lg"><%= current_creature_turn.name %></p>
   </div>
+  <div class="stat-box bg-gray-900 rounded-2xl p-3 shadow-md text-center text-white flex-1">
+    <p class="font-semibold text-sm">Role</p>
+    <p class="text-lg"><%= current_creature_turn.try(:role) || "Unknown" %></p>
+  </div>
+  <div class="stat-box bg-gray-900 rounded-2xl p-3 shadow-md text-center text-white flex-1">
+    <p class="font-semibold text-sm">Round</p>
+    <p class="text-lg"><%= @tracker.round %></p>
+  </div>
+</div>
 
-  <!-- Creature Stats -->
-  <% if creature.present? && creature.is_a?(Creature) %>
-    <div class="mt-2 rounded-lg p-3 shadow-lg 
-                <%= is_current_turn ? 'bg-red-900 text-white' : 'bg-gray-900 text-white' %>">
-      <h3 class="text-lg font-bold mb-3"><%= creature.name %></h3>
-      
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
-        <div class="<%= is_current_turn ? 'bg-red-800' : 'bg-gray-800' %> p-2 rounded-lg text-center">
-          <p class="font-semibold">Initiative</p>
-          <p><%= creature.initiative || "Unknown" %></p>
-        </div>
-  
-        <div class="<%= is_current_turn ? 'bg-red-800' : 'bg-gray-800' %> p-2 rounded-lg text-center">
-          <p class="font-semibold">HP</p>
-          <p><%= creature.current_hp %> / <%= creature.max_hp %></p>
-        </div>
-  
-        <div class="<%= is_current_turn ? 'bg-red-800' : 'bg-gray-800' %> p-2 rounded-lg text-center">
-          <p class="font-semibold">AC</p>
-          <p><%= creature.try(:ac) || "Unknown" %></p>
-        </div>
-  
-        <div class="<%= is_current_turn ? 'bg-red-800' : 'bg-gray-800' %> p-2 rounded-lg text-center">
-          <p class="font-semibold">Speed</p>
-          <p><%= creature.try(:speed) ? "#{creature.speed} ft." : "Unknown" %></p>
-        </div>
-      </div>
+
+ <!-- Creature Stats (dynamic on card click) -->
+<div id="creature-stats" class="bg-gray-900 rounded-2xl p-4 mt-2 shadow-lg text-white">
+  <h3 class="text-lg font-bold mb-3">Select a creature</h3>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+    <div class="stat-box initiative bg-gray-800 p-2 rounded-lg text-center">
+      <p class="font-semibold">Initiative</p>
+      <p class="value">--</p>
     </div>
-  <% end %>
+
+    <div class="stat-box hp bg-gray-800 p-2 rounded-lg text-center">
+      <p class="font-semibold">HP</p>
+      <p class="value">-- / --</p>
+    </div>
+
+    <div class="stat-box ac bg-gray-800 p-2 rounded-lg text-center">
+      <p class="font-semibold">AC</p>
+      <p class="value">--</p>
+    </div>
+
+    <div class="stat-box speed bg-gray-800 p-2 rounded-lg text-center">
+      <p class="font-semibold">Speed</p>
+      <p class="value">--</p>
+    </div>
+  </div>
+</div>
 
 </div>

@@ -2,18 +2,126 @@ import { Controller } from "@hotwired/stimulus"
 import EmblaCarousel from "embla-carousel"
 
 export default class extends Controller {
-  static targets = ["viewport"]
+  static targets = ["viewport", "card"]
+  static values = { currentId: Number }
 
   connect() {
+    // Initialize Embla
     this.embla = EmblaCarousel(this.viewportTarget, {
       loop: true,
       dragFree: true,
       containScroll: "trimSnaps",
     })
 
+    // Setup drag state
+    this.dragging = false
     this.addRightClickDrag()
+
+    // Scroll to current turn card and highlight it
+    this.scrollToCurrentTurn()
+
+    // Listen for card:selected events to update stats
+    this.element.addEventListener("card:selected", (e) => {
+      const selectedId = e.detail.selectedId
+
+      // Find DOM elements to update
+      const roundDiv = document.querySelector("#current-round")
+      const statsDiv = document.querySelector("#creature-stats")
+
+      const selectedCard = this.cardTargets.find(c => parseInt(c.dataset.cardId) === selectedId)
+      if (!selectedCard) return
+
+      const name = selectedCard.querySelector("h3").innerText
+      const initiative = selectedCard.querySelector("p")?.innerText.split(": ")[1] || "Unknown"
+
+      // Update "Current Round" section
+      if (roundDiv) roundDiv.querySelector("strong").innerText = name
+
+      // Update creature stats section
+      if (statsDiv) {
+        statsDiv.querySelector("h3").innerText = name
+        const initiativeDiv = statsDiv.querySelector(".initiative p")
+        if (initiativeDiv) initiativeDiv.innerText = initiative
+      }
+
+      // Update card borders and background colors
+      this.cardTargets.forEach(card => {
+        const id = parseInt(card.dataset.cardId)
+        card.classList.remove("border-2", "border-white")
+        if (id === selectedId) card.classList.add("border-2", "border-white")
+
+        if (id === this.currentIdValue) {
+          card.classList.add("bg-red-800", "text-white")
+        } else if (id !== selectedId) {
+          card.classList.remove("bg-red-800", "text-white")
+        }
+      })
+    })
   }
 
+  // --- Drag-safe click handling ---
+  startDragCard(event) {
+    this.dragging = false
+    this.startX = event.clientX
+    this.startY = event.clientY
+  }
+
+  moveDragCard(event) {
+    const dx = Math.abs(event.clientX - this.startX)
+    const dy = Math.abs(event.clientY - this.startY)
+    if (dx > 5 || dy > 5) this.dragging = true
+  }
+
+  selectCard(event) {
+    if (this.dragging) return
+  
+    const card = event.currentTarget
+    const cardId = parseInt(card.dataset.cardId)
+  
+    this.highlightCard(cardId)
+    this.updateStats(card) // ✅ populate stats dynamically
+  }
+  
+
+
+  highlightCard(cardId) {
+    this.cardTargets.forEach(card => {
+      const id = parseInt(card.dataset.cardId)
+
+      // Add border to selected card
+      if (id === cardId) {
+        card.classList.add("border-2", "border-white")
+      } else {
+        card.classList.remove("border-2", "border-white")
+      }
+
+      // Keep current turn red
+      if (id === this.currentIdValue) {
+        card.classList.add("bg-red-800", "text-white")
+      } else if (id !== cardId) {
+        // Non-selected cards revert to gray
+        card.classList.remove("bg-red-800", "text-white")
+      }
+    })
+  }
+
+  highlightCurrentStats(event) {
+    const card = event.currentTarget
+    const isCurrent = card.dataset.isCurrent === "true"
+    const statsSection = document.getElementById("creature-stats")
+  
+    if (!statsSection) return
+  
+    if (isCurrent) {
+      statsSection.classList.remove("bg-gray-900")
+      statsSection.classList.add("bg-red-900")
+    } else {
+      statsSection.classList.remove("bg-red-900")
+      statsSection.classList.add("bg-gray-900")
+    }
+  }  
+
+  // --- Embla right-click drag support ---
   addRightClickDrag() {
     let isDragging = false
     let startX = 0
@@ -24,7 +132,7 @@ export default class extends Controller {
       e.preventDefault()
       isDragging = true
       startX = e.clientX
-      startScroll = this.embla.scrollProgress() // get current scroll
+      startScroll = this.embla.scrollProgress()
     })
 
     window.addEventListener("mousemove", (e) => {
@@ -39,8 +147,38 @@ export default class extends Controller {
       isDragging = false
     })
 
-    this.viewportTarget.addEventListener("contextmenu", (e) => {
-      e.preventDefault()
-    })
+    this.viewportTarget.addEventListener("contextmenu", (e) => e.preventDefault())
   }
+
+  // --- Scroll carousel to current turn on load ---
+  scrollToCurrentTurn() {
+    const currentIndex = this.cardTargets.findIndex(
+      card => parseInt(card.dataset.cardId) === this.currentIdValue
+    )
+    if (currentIndex !== -1) {
+      this.embla.scrollTo(currentIndex)
+      this.highlightCard(this.currentIdValue)
+    }
+  }
+
+  updateStats(card) {
+    const statsDiv = document.getElementById("creature-stats")
+    if (!statsDiv) return
+  
+    statsDiv.querySelector("h3").innerText = card.dataset.name
+    statsDiv.querySelector(".stat-box.initiative .value").innerText = card.dataset.initiative
+    statsDiv.querySelector(".stat-box.hp .value").innerText = `${card.dataset.hpCurrent} / ${card.dataset.hpMax}`
+    statsDiv.querySelector(".stat-box.ac .value").innerText = card.dataset.ac
+    statsDiv.querySelector(".stat-box.speed .value").innerText = card.dataset.speed
+  
+    // Red highlight if this card is the current turn
+    if (card.dataset.isCurrent === "true") {
+      statsDiv.classList.add("bg-red-800")
+      statsDiv.classList.remove("bg-gray-900")
+    } else {
+      statsDiv.classList.remove("bg-red-800")
+      statsDiv.classList.add("bg-gray-900")
+    }
+  }
+  
 }
