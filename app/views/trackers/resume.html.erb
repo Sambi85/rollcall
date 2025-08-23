@@ -55,10 +55,47 @@
     </div>
   </div>
 
-  <!-- Current Round / Active Creature with spacing -->
-  <div class="my-4 bg-gray-800 rounded-lg p-4 shadow-md">
-    <p class="text-lg font-semibold text-white">
-      Turn: <%= @tracker.current_turn_name %> | Round: <%= @tracker.round %>
+  <!-- CONDITION -->
+  <% creature = @tracker.current_turn %>
+  <% role = creature.try(:role) || "Creature" %>
+  <% is_current_turn = creature.present? && creature == @tracker.current_turn %>
+
+  <!-- Current Round -->
+  <div class="my-4 rounded-lg p-4 shadow-md text-left 
+              <%= is_current_turn ? 'bg-red-800 text-white' : 'bg-gray-800 text-white' %>">
+    <p class="font-semibold">
+      Round: <%= @tracker.round %>   |   Current Turn: <strong><%= creature.name %></strong>   |   Role: <%= role %>
     </p>
   </div>
+
+  <!-- Creature Stats -->
+  <% if creature.present? && creature.is_a?(Creature) %>
+    <div class="mt-2 rounded-lg p-3 shadow-lg 
+                <%= is_current_turn ? 'bg-red-900 text-white' : 'bg-gray-900 text-white' %>">
+      <h3 class="text-lg font-bold mb-3"><%= creature.name %></h3>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+        <div class="<%= is_current_turn ? 'bg-red-800' : 'bg-gray-800' %> p-2 rounded-lg text-center">
+          <p class="font-semibold">Initiative</p>
+          <p><%= creature.initiative || "Unknown" %></p>
+        </div>
+  
+        <div class="<%= is_current_turn ? 'bg-red-800' : 'bg-gray-800' %> p-2 rounded-lg text-center">
+          <p class="font-semibold">HP</p>
+          <p><%= creature.current_hp %> / <%= creature.max_hp %></p>
+        </div>
+  
+        <div class="<%= is_current_turn ? 'bg-red-800' : 'bg-gray-800' %> p-2 rounded-lg text-center">
+          <p class="font-semibold">AC</p>
+          <p><%= creature.try(:ac) || "Unknown" %></p>
+        </div>
+  
+        <div class="<%= is_current_turn ? 'bg-red-800' : 'bg-gray-800' %> p-2 rounded-lg text-center">
+          <p class="font-semibold">Speed</p>
+          <p><%= creature.try(:speed) ? "#{creature.speed} ft." : "Unknown" %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
 </div>
