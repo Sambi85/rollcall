@@ -1,0 +1,58 @@
+  <!-- Carousel -->
+  <div class="my-4 overflow-hidden bg-gray-800 rounded-2xl p-4">
+    <!-- Pass current turn id to Stimulus (+ correct target names) -->
+    <div
+      data-controller="carousel"
+      data-carousel-current-id-value="<%= @tracker.current_turn&.id %>"
+    >
+      <!-- Embla viewport -->
+      <div data-carousel-target="viewport" class="overflow-hidden">
+        <!-- Embla container (MUST wrap all slides) -->
+        <div class="flex space-x-2 px-2">
+          <% @turn_order.each_with_index do |entity, index| %>
+            <% is_current = (entity == @tracker.current_turn)
+               has_acted  = (@tracker.acted_this_round.include?(entity) rescue false)
+               is_special = (entity.try(:special_event?) || false)
+
+               base = "min-w-[250px] flex-none rounded-2xl shadow-lg p-4 relative cursor-pointer"
+               card_classes =
+                 if is_current
+                   "#{base} bg-red-800 text-white"
+                 elsif is_special
+                   "#{base} bg-purple-700 text-white"
+                 elsif has_acted
+                   "#{base} bg-gray-600 text-gray-300"
+                 else
+                   "#{base} bg-gray-300 text-black"
+                 end
+            %>
+
+            <!-- Embla slide -->
+            <div
+          class="<%= card_classes %>"
+          data-carousel-target="card"
+          data-action="click->carousel#selectCard"
+          data-card-id="<%= entity.id %>"
+          data-name="<%= entity.name %>"
+          data-role="<%= entity.try(:role) || 'Creature' %>"
+          data-initiative="<%= entity.try(:initiative) || 'Unknown' %>"
+          data-hp-current="<%= entity.try(:current_hp) || 0 %>"
+          data-hp-max="<%= entity.try(:max_hp) || 0 %>"
+          data-ac="<%= entity.try(:ac) || 'Unknown' %>"
+          data-speed="<%= entity.try(:speed) || 'Unknown' %>"
+          data-is-current="<%= is_current %>"
+        >
+              <div class="absolute top-2 left-2 bg-black/50 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">
+                <%= index + 1 %>
+              </div>
+
+              <h3 class="text-xl font-bold mb-2"><%= entity.name %></h3>
+              <% if entity.respond_to?(:initiative) %>
+                <p>Initiative: <%= entity.initiative || "Unknown" %></p>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
