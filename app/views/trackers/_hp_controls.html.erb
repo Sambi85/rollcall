@@ -6,6 +6,7 @@
     <p>Temp HP: <%= creature.temp_hp %></p>
     <p>Current HP: <%= creature.current_hp + creature.temp_hp  %></p>
     <p>Max HP: <%= creature.max_hp  + creature.temp_hp %></p>
+    <p>Total HP: <%= creature.temp_hp + creature.current_hp %> / <%= creature.max_hp %></p>
 
     <div class="flex space-x-2 mt-2">
       <%= button_to "-",
@@ -27,5 +28,6 @@
     <p>Temp HP: -- </p>
     <p>Current HP: -- </p>
     <p>Max HP: -- </p>
+    <p>Total HP: -- / -- </p>
   </div>
 <% end %>
