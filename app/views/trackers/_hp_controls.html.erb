@@ -1,29 +1,32 @@
-<% current_creature_turn = creature %>
-<div id="hp-controls" class="bg-gray-900 rounded-2xl p-4 my-4 shadow-lg text-white max-w-md">
-  <h3 class="text-lg font-bold mb-3">Hit Points</h3>
+<%# _hp_controls.html.erb %>
 
-  <% [:current_hp, :temp_hp, :max_hp].each do |attr| %>
-    <div class="flex items-center justify-between bg-gray-800 p-2 rounded-lg mb-2">
-      <span class="font-semibold w-24"><%= attr.to_s.humanize %></span>
+<% if creature %>
+  <div class="p-4 bg-gray-700 rounded-2xl text-white">
+    <h2 class="text-lg font-bold mb-2"><%= creature.name %></h2>
+    <p>HP: <%= creature.current_hp %> / <%= creature.max_hp %></p>
+    <% if creature.temp_hp.present? %>
+      <p>Temp HP: <%= creature.temp_hp %></p>
+    <% end %>
 
-      <%= number_field_tag attr, creature.send(attr),
-            class: "w-16 text-black rounded px-1 text-center",
-            data: { action: "change->hp#update", field: attr, creature_id: creature.id } %>
-
-      <%= button_to "+", tracker_creature_update_health_path(tracker, creature, field: attr, action: "increment"),
+    <div class="flex space-x-2 mt-2">
+      <%= button_to "-",
+            tracker_creature_update_health_path(tracker, creature, hp: creature.current_hp - 1),
             method: :put,
-            remote: true,
-            class: "bg-green-600 px-2 py-1 rounded" %>
+            form: { data: { turbo_frame: "hp_tracker" } },
+            class: "px-3 py-1 bg-red-600 rounded-lg" %>
 
-      <%= button_to "-", tracker_creature_update_health_path(tracker, creature, field: attr, action: "decrement"),
+      <%= button_to "+",
+            tracker_creature_update_health_path(tracker, creature, hp: creature.current_hp + 1),
             method: :put,
-            remote: true,
-            class: "bg-red-600 px-2 py-1 rounded" %>
+            form: { data: { turbo_frame: "hp_tracker" } },
+            class: "px-3 py-1 bg-green-600 rounded-lg" %>
     </div>
-  <% end %>
-
-  <!-- Total HP display -->
-  <div class="bg-gray-800 p-2 rounded-lg text-center font-semibold mt-2">
-    Total HP: <%= creature.max_hp + creature.temp_hp %>
   </div>
-</div>
+<% else %>
+  <div class="p-4 bg-gray-700 rounded-2xl text-white">
+    <h2 class="text-lg font-bold mb-2">Select a creature</h2>
+    <p>HP: -- </p>
+    <p>Temp HP: -- </p>
+    <p>Max HP: -- </p>
+  </div>
+<% end %>

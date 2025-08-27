@@ -11,6 +11,8 @@
   <%= render "trackers/carousel", tracker: @tracker %>
   <%= render "trackers/current_round", tracker: @tracker %>
   <%= render "trackers/creature_stats" %>
-  <%= render "trackers/hp_controls", creature: @tracker.current_turn, tracker: @tracker %>
 
+<turbo-frame id="hp_tracker">
+  <%= render partial: "hp_controls", locals: { tracker: @tracker, creature: @creatures } %>
+</turbo-frame>
 </div>

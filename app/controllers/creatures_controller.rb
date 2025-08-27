@@ -4,7 +4,7 @@ class CreaturesController < ApplicationController
     :mark_dead, :mark_alive,
     :receive_damage, :heal,
     :reset_death_saves, :add_death_save,
-    :update_hp, :update_temp_hp, :update_max_hp
+    :update_health
   ]
 
 
@@ -95,15 +95,31 @@ class CreaturesController < ApplicationController
     }, status: :ok
   end
 
+  # GET /trackers/:tracker_id/creatures/:creature_id/hp_controls
+  def hp_controls
+    @tracker = Tracker.find(params[:tracker_id])
+    @creature = Creature.find(params[:creature_id])
+    render partial: "trackers/hp_controls", locals: { tracker: @tracker, creature: @creature }
+  end
+
   # PUT /trackers/:tracker_id/creatures/:id/update_health
   def update_health
     health_params = params.permit(:hp, :temp_hp, :max_hp).to_h.compact_blank
 
     if health_params.any?
       @creature.update!(health_params)
-      render json: { creature: @creature }, status: :ok
+
+      respond_to do |format|
+        format.turbo_stream do
+          render partial: "hp_controls", locals: { creature: @creature, tracker: @tracker }
+        end
+        format.json { render json: { creature: @creature }, status: :ok }
+      end
     else
-      render json: { error: "No valid health params provided" }, status: :unprocessable_entity
+      respond_to do |format|
+        format.turbo_stream { head :unprocessable_entity }
+        format.json { render json: { error: "No valid health params provided" }, status: :unprocessable_entity }
+      end
     end
   end
 

@@ -79,7 +79,8 @@ export default class extends Controller {
     const cardId = parseInt(card.dataset.cardId)
   
     this.highlightCard(cardId)
-    this.updateStats(card) // ✅ populate stats dynamically
+    this.updateStats(card)
+    this.updateHpTracker(card)
   }
   
 
@@ -160,6 +161,21 @@ export default class extends Controller {
       this.highlightCard(this.currentIdValue)
     }
   }
+
+  updateHpTracker(card) {
+    const trackerId = card.dataset.trackerId
+    const creatureId = card.dataset.cardId
+    const turboFrame = document.getElementById("hp_tracker")
+    if (!turboFrame) return
+  
+    fetch(`/trackers/${trackerId}/creatures/${creatureId}/hp_controls`, {
+      headers: { "Turbo-Frame": "hp_tracker" }
+    })
+    .then(resp => resp.text())
+    .then(html => {
+      turboFrame.innerHTML = html
+    })
+  }  
 
   updateStats(card) {
     const statsDiv = document.getElementById("creature-stats")
