@@ -26,6 +26,8 @@ Rails.application.routes.draw do
       put "heal"
       put "reset_death_saves"
       put "add_death_save"
+      put "update_health"
+
       resources :effects, controller: "creature_effects"
       resources :creature_abilities
     end

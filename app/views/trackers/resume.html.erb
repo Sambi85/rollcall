@@ -11,5 +11,6 @@
   <%= render "trackers/carousel", tracker: @tracker %>
   <%= render "trackers/current_round", tracker: @tracker %>
   <%= render "trackers/creature_stats" %>
+  <%= render "trackers/hp_controls", creature: @tracker.current_turn, tracker: @tracker %>
 
 </div>

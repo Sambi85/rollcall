@@ -1,0 +1,29 @@
+<% current_creature_turn = creature %>
+<div id="hp-controls" class="bg-gray-900 rounded-2xl p-4 my-4 shadow-lg text-white max-w-md">
+  <h3 class="text-lg font-bold mb-3">Hit Points</h3>
+
+  <% [:current_hp, :temp_hp, :max_hp].each do |attr| %>
+    <div class="flex items-center justify-between bg-gray-800 p-2 rounded-lg mb-2">
+      <span class="font-semibold w-24"><%= attr.to_s.humanize %></span>
+
+      <%= number_field_tag attr, creature.send(attr),
+            class: "w-16 text-black rounded px-1 text-center",
+            data: { action: "change->hp#update", field: attr, creature_id: creature.id } %>
+
+      <%= button_to "+", tracker_creature_update_health_path(tracker, creature, field: attr, action: "increment"),
+            method: :put,
+            remote: true,
+            class: "bg-green-600 px-2 py-1 rounded" %>
+
+      <%= button_to "-", tracker_creature_update_health_path(tracker, creature, field: attr, action: "decrement"),
+            method: :put,
+            remote: true,
+            class: "bg-red-600 px-2 py-1 rounded" %>
+    </div>
+  <% end %>
+
+  <!-- Total HP display -->
+  <div class="bg-gray-800 p-2 rounded-lg text-center font-semibold mt-2">
+    Total HP: <%= creature.max_hp + creature.temp_hp %>
+  </div>
+</div>

@@ -1,6 +1,12 @@
 class CreaturesController < ApplicationController
   before_action :set_tracker, except: [ :index ]
-  before_action :set_creature, only: [ :mark_dead, :mark_alive, :receive_damage, :heal, :reset_death_saves, :add_death_save ]
+  before_action :set_creature, only: [
+    :mark_dead, :mark_alive,
+    :receive_damage, :heal,
+    :reset_death_saves, :add_death_save,
+    :update_hp, :update_temp_hp, :update_max_hp
+  ]
+
 
   # GET /creatures
   def index
@@ -87,6 +93,18 @@ class CreaturesController < ApplicationController
       message: "Death save recorded.",
       creature: @creature
     }, status: :ok
+  end
+
+  # PUT /trackers/:tracker_id/creatures/:id/update_health
+  def update_health
+    health_params = params.permit(:hp, :temp_hp, :max_hp).to_h.compact_blank
+
+    if health_params.any?
+      @creature.update!(health_params)
+      render json: { creature: @creature }, status: :ok
+    else
+      render json: { error: "No valid health params provided" }, status: :unprocessable_entity
+    end
   end
 
   private
