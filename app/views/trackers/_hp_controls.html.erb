@@ -3,10 +3,9 @@
 <% if creature %>
   <div class="p-4 bg-gray-700 rounded-2xl text-white">
     <h2 class="text-lg font-bold mb-2"><%= creature.name %></h2>
-    <p>HP: <%= creature.current_hp %> / <%= creature.max_hp %></p>
-    <% if creature.temp_hp.present? %>
-      <p>Temp HP: <%= creature.temp_hp %></p>
-    <% end %>
+    <p>Temp HP: <%= creature.temp_hp %></p>
+    <p>Current HP: <%= creature.current_hp + creature.temp_hp  %></p>
+    <p>Max HP: <%= creature.max_hp  + creature.temp_hp %></p>
 
     <div class="flex space-x-2 mt-2">
       <%= button_to "-",
@@ -25,8 +24,8 @@
 <% else %>
   <div class="p-4 bg-gray-700 rounded-2xl text-white">
     <h2 class="text-lg font-bold mb-2">Select a creature</h2>
-    <p>HP: -- </p>
     <p>Temp HP: -- </p>
+    <p>Current HP: -- </p>
     <p>Max HP: -- </p>
   </div>
 <% end %>
