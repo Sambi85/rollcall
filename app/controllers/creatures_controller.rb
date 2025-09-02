@@ -104,14 +104,18 @@ class CreaturesController < ApplicationController
 
   # PUT /trackers/:tracker_id/creatures/:id/update_health
   def update_health
-    health_params = params.permit(:hp, :temp_hp, :max_hp).to_h.compact_blank
+    health_params = params.permit(:current_hp, :temp_hp, :max_hp).to_h.compact_blank
 
     if health_params.any?
       @creature.update!(health_params)
 
       respond_to do |format|
         format.turbo_stream do
-          render partial: "hp_controls", locals: { creature: @creature, tracker: @tracker }
+          render turbo_stream: turbo_stream.replace(
+            "hp_tracker_#{@creature.id}",
+            partial: "trackers/hp_controls",
+            locals: { creature: @creature, tracker: @tracker }
+          )
         end
         format.json { render json: { creature: @creature }, status: :ok }
       end
@@ -130,7 +134,7 @@ class CreaturesController < ApplicationController
   end
 
   def set_creature
-    @creature = Creature.find(params[:creature_id])
+    @creature = Creature.find(params[:creature_id] || params[:id])
   end
 
   def creature_params
