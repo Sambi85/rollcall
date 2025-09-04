@@ -1,0 +1,6 @@
+<turbo-frame id="creature_hp_<%= creature.id %>">
+  <div class="stat-box hp bg-gray-800 p-2 rounded-lg text-center">
+    <p class="font-semibold">HP</p>
+    <p class="value"><%= creature.current_hp + creature.temp_hp %> / <%= creature.max_hp %></p>
+  </div>
+</turbo-frame>

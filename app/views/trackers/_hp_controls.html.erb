@@ -1,26 +1,26 @@
 <% if creature %>
   <div class="my-4">
-    <div class="p-4 bg-gray-700 rounded-2xl text-white w-80">
+    <div id="hp_tracker_<%= creature.id %>" class="p-4 bg-gray-700 rounded-2xl text-white w-96">
+      <h2 class="text-lg font-bold mb-2"><%= creature.name %></h2>
+
       <% [["Temp HP", creature.temp_hp, :temp_hp], ["Current HP", creature.current_hp, :current_hp], ["Max HP", creature.max_hp, :max_hp]].each do |label, value, field| %>
-        <div class="flex justify-between items-center mb-1">
+        <div class="flex justify-between items-center mb-2">
           <span><%= label %>: <%= value %></span>
-          <div class="space-x-1">
-            <%= button_to "-",
-                  tracker_creature_update_health_path(tracker, creature, field => value - 1),
-                  method: :put,
-                  form: { data: { turbo_frame: "hp_tracker" }, class: "inline" },
-                  class: "px-2 py-1 bg-red-600 rounded-lg" %>
-            <%= button_to "+",
-                  tracker_creature_update_health_path(tracker, creature, field => value + 1),
-                  method: :put,
-                  form: { data: { turbo_frame: "hp_tracker" }, class: "inline" },
-                  class: "px-2 py-1 bg-green-600 rounded-lg" %>
-          </div>
+
+          <%= form_with url: tracker_creature_update_health_path(tracker, creature),
+                        method: :put,
+                        data: { turbo_frame: "hp_tracker_#{creature.id}" },
+                        class: "inline-flex items-center space-x-2" do |f| %>
+            <%= number_field_tag field, value,
+                  class: "w-16 text-black rounded px-1 py-0.5",
+                  min: 0 %>
+            <%= f.submit "Update", class: "px-2 py-1 bg-blue-600 rounded-lg text-white" %>
+          <% end %>
         </div>
       <% end %>
 
       <!-- Total HP -->
-      <p class="mt-2">
+      <p class="mt-3 font-semibold">
         Total HP: <%= creature.current_hp + creature.temp_hp %> / <%= creature.max_hp %>
       </p>
     </div>
@@ -28,6 +28,7 @@
 <% else %>
   <div class="my-4">
     <div class="p-4 bg-gray-700 rounded-2xl text-white w-80">
+      <h2 class="text-lg font-bold mb-2">Select a creature</h2>
       <p>Temp HP: -- </p>
       <p>Current HP: -- </p>
       <p>Max HP: -- </p>

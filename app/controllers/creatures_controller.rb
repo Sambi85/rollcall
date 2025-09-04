@@ -111,11 +111,20 @@ class CreaturesController < ApplicationController
 
       respond_to do |format|
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace(
-            "hp_tracker_#{@creature.id}",
-            partial: "trackers/hp_controls",
-            locals: { creature: @creature, tracker: @tracker }
-          )
+          render turbo_stream: [
+            # Replace only the HP in creature stats
+            turbo_stream.replace(
+              "creature_hp_#{@creature.id}",
+              partial: "trackers/creature_hp",
+              locals: { creature: @creature }
+            ),
+            # Replace HP controls form itself
+            turbo_stream.replace(
+              "hp_tracker_#{@creature.id}",
+              partial: "trackers/hp_controls",
+              locals: { creature: @creature, tracker: @tracker }
+            )
+          ]
         end
         format.json { render json: { creature: @creature }, status: :ok }
       end

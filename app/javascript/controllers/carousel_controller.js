@@ -181,11 +181,22 @@ export default class extends Controller {
     const statsDiv = document.getElementById("creature-stats")
     if (!statsDiv) return
   
+    // Update static stats (only once, won't change with HP edits)
     statsDiv.querySelector("h3").innerText = card.dataset.name
     statsDiv.querySelector(".stat-box.initiative .value").innerText = card.dataset.initiative
-    statsDiv.querySelector(".stat-box.hp .value").innerText = `${card.dataset.hpCurrent} / ${card.dataset.hpMax}`
     statsDiv.querySelector(".stat-box.ac .value").innerText = card.dataset.ac
     statsDiv.querySelector(".stat-box.speed .value").innerText = card.dataset.speed
+  
+    // Update HP inside its Turbo Frame
+    const hpFrame = document.getElementById(`creature_hp_${card.dataset.cardId}`)
+    if (hpFrame) {
+      hpFrame.innerHTML = `
+        <div class="stat-box hp bg-gray-800 p-2 rounded-lg text-center">
+          <p class="font-semibold">HP</p>
+          <p class="value">${parseInt(card.dataset.hpCurrent) + parseInt(card.dataset.hpTemp)} / ${card.dataset.hpMax}</p>
+        </div>
+      `
+    }    
   
     // Red highlight if this card is the current turn
     if (card.dataset.isCurrent === "true") {
@@ -195,6 +206,6 @@ export default class extends Controller {
       statsDiv.classList.remove("bg-red-800")
       statsDiv.classList.add("bg-gray-900")
     }
-  }
+  }  
   
 }
